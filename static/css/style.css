@@ -536,20 +536,59 @@ p {
     overflow: hidden;
 }
 
-@media (max-width: 767px) {
-    .profile-avatar {
-        width: 140px;
-        height: 140px;
-        max-width: 140px;
+@media (max-width:1150px){
+
+    .navbar-expand-xl .navbar-toggler{
+        display:block;
     }
 
-    .navbar-brand {
-        max-width: min(58vw, 288px);
+    .navbar-expand-xl .navbar-collapse{
+        flex-basis:100%;
+        flex-grow:1;
+        width:100%;
+        margin-top:20px;
     }
 
-    .navbar-brand-logo {
-        width: clamp(225px, 52vw, 288px);
-        max-height: clamp(76px, 14vw, 95px);
+    .navbar-expand-xl .navbar-collapse:not(.show){
+        display:none !important;
+    }
+
+    .navbar-expand-xl .navbar-collapse.show{
+        display:flex !important;
+        flex-direction:column;
+        align-items:stretch;
+    }
+
+    .navbar-expand-xl .navbar-nav{
+        width:100%;
+        display:flex;
+        flex-direction:column;
+        gap:10px;
+        margin-bottom:20px;
+    }
+
+    .navbar-expand-xl .navbar-nav .nav-link{
+        display:block;
+        padding:12px 16px;
+    }
+
+    .navbar-expand-xl .d-flex{
+        display:flex !important;
+        flex-direction:column;
+        width:100%;
+        gap:10px;
+    }
+
+    .navbar-expand-xl .navbar-action-btn{
+        width:100%;
+    }
+
+    .navbar-expand-xl .dropdown{
+        width:100%;
+    }
+
+    .navbar-expand-xl .dropdown-toggle{
+        width:100%;
     }
 }
 

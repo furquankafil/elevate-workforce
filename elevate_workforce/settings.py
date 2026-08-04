@@ -5,14 +5,18 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-elevate-local-dev-key-123456789"
+SECRET_KEY = os.environ.get(
+    "SECRET_KEY",
+    "django-insecure-elevate-local-dev-key-123456789"
+)
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG", "False") == "True"
 
 # Hostnames allowed to access the site (Note: Port numbers must not be included here)
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
-
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+]
 # Render provides its external hostname via this environment variable at runtime
 RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
 if RENDER_EXTERNAL_HOSTNAME:

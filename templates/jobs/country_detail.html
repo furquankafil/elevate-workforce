@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block seo_title %}{{ country.name }} Recruitment Sourcing Guide | Elevate Workforce{% endblock %}
+{% block seo_desc %}{{ country.meta_description|default:country.description|striptags|truncatewords:25 }}{% endblock %}
+
+{% block content %}
+<!-- ==========================================
+     1. COUNTRY DETAIL HERO
+     ========================================== -->
+<section class="bg-gradient-premium text-white py-5 position-relative overflow-hidden">
+    <div class="container position-relative z-1 py-4">
+        <div class="row align-items-center g-4">
+            <div class="col-lg-8">
+                <!-- Breadcrumbs -->
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-white bg-opacity-10 py-2 px-3 rounded-pill mb-3 d-inline-flex">
+                        <li class="breadcrumb-item"><a href="{% url 'core:index' %}" class="text-white text-decoration-none fs-12 poppins-medium">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'jobs:countries' %}" class="text-white text-decoration-none fs-12 poppins-medium">Countries</a></li>
+                        <li class="breadcrumb-item active text-white text-opacity-50 fs-12 poppins-medium" aria-current="page">{{ country.name }}</li>
+                    </ol>
+                </nav>
+                
+                <h1 class="display-4 poppins-bold text-white mb-2">{{ country.name }} Recruitment Sourcing</h1>
+                <p class="lead text-light-muted mb-0 poppins-regular">
+                    Explore active employment openings, work contract formats, and mobilization requirements.
+                </p>
+            </div>
+            
+            <div class="col-lg-4 text-lg-end">
+                <a href="{% url 'jobs:job_list' %}?country={{ country.slug }}" class="btn btn-secondary-custom px-4 py-3 poppins-semibold">
+                    <i class="fa-solid fa-list-check me-2"></i> View All {{ country.name }} Jobs
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================
+     2. RECRIUTMENT PROCESS GUIDE & VACANCIES LIST
+     ========================================== -->
+<section class="section-padding bg-light">
+    <div class="container">
+        <div class="row g-4">
+            
+            <!-- Left Side Column: Country Sourcing Profile (col-lg-7) -->
+            <div class="col-lg-7">
+                <div class="card border-0 p-4 p-md-5 shadow-sm rounded-3 bg-white mb-4">
+                    <h3 class="poppins-bold text-primary fs-4 border-bottom pb-2 mb-3">
+                        <i class="fa-solid fa-plane-departure text-secondary me-2"></i> Mobilization & Visa Requirements
+                    </h3>
+                    <div class="text-muted poppins-regular fs-15 lh-lg mb-5">
+                        {{ country.description|linebreaks }}
+                    </div>
+
+                    <!-- Structured FAQ/Tip Panel for Candidate Success -->
+                    <h4 class="poppins-bold text-dark fs-5 mb-3"><i class="fa-solid fa-circle-info text-warning me-1"></i> Essential Sourcing Milestones</h4>
+                    <ul class="list-unstyled poppins-regular fs-14 text-muted mb-0">
+                        <li class="mb-3 d-flex align-items-start gap-2">
+                            <i class="fa-solid fa-passport text-primary fs-5 mt-1"></i>
+                            <div>
+                                <strong>Passport Validation:</strong>
+                                <p class="mb-0 fs-13">Passports must remain valid for at least 6 months from the scheduled travel date. ECR/ECNR requirements vary by position classification.</p>
+                            </div>
+                        </li>
+                        <li class="mb-3 d-flex align-items-start gap-2">
+                            <i class="fa-solid fa-heart-pulse text-secondary fs-5 mt-1"></i>
+                            <div>
+                                <strong>GAMCA & Medical Clearances:</strong>
+                                <p class="mb-0 fs-13">Candidates destined for Gulf nations (GCC) must clear standard medical checkups from accredited centers.</p>
+                            </div>
+                        </li>
+                        <li class="mb-0 d-flex align-items-start gap-2">
+                            <i class="fa-solid fa-clipboard-check text-primary fs-5 mt-1"></i>
+                            <div>
+                                <strong>PCC (Police Clearance Certificate):</strong>
+                                <p class="mb-0 fs-13">Required for several European nations (Romania, Croatia, etc.) to issue valid physical work permits.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Right Side Column: Active vacancies for this country (col-lg-5) -->
+            <div class="col-lg-5">
+                <div class="card border-0 p-4 shadow-sm rounded-3 bg-white mb-4">
+                    <h4 class="poppins-bold text-dark fs-5 border-bottom pb-3 mb-4 d-flex align-items-center justify-content-between">
+                        <span><i class="fa-solid fa-briefcase text-primary me-2"></i> Open Positions</span>
+                        <span class="badge bg-secondary text-white poppins-semibold fs-11">{{ jobs|length }} Active</span>
+                    </h4>
+                    
+                    <div class="d-flex flex-column gap-3">
+                        {% for job in jobs %}
+                            <div class="p-3 border rounded bg-light transition-all hover-shadow d-flex flex-column justify-content-between">
+                                <div>
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <span class="badge bg-primary-subtle text-primary border border-primary border-opacity-15 fs-11 poppins-semibold">{{ job.job_type }}</span>
+                                        <span class="text-muted fs-11 poppins-medium"><i class="fa-solid fa-clock"></i> {{ job.created_at|date:"M d" }}</span>
+                                    </div>
+                                    <h5 class="poppins-bold text-dark fs-16 mb-1">{{ job.title }}</h5>
+                                    <p class="text-muted fs-13 mb-3 poppins-semibold"><i class="fa-solid fa-building"></i> {{ job.employer.company_name }}</p>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between mt-2 pt-2 border-top">
+                                    <span class="text-success poppins-semibold fs-13"><i class="fa-solid fa-wallet"></i> {{ job.salary_range|default:"Competitive" }}</span>
+                                    <a href="{% url 'jobs:job_detail' job.slug %}" class="btn btn-sm btn-outline-custom py-1 px-3 fs-12 poppins-bold">Details</a>
+                                </div>
+                            </div>
+                        {% empty %}
+                            <div class="text-center py-5">
+                                <div class="text-muted mb-3"><i class="fa-solid fa-folder-open fs-2"></i></div>
+                                <h6 class="poppins-bold text-dark mb-1">No Active Openings Found</h6>
+                                <p class="text-muted fs-13 mb-0">There are currently no active job vacancies listed for this country. Please register to receive email notifications when new positions match your profile.</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock %}

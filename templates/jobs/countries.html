@@ -1,0 +1,217 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block seo_title %}Accredited Sourcing Destinations | {{ seo_settings.site_name|default:"Elevate Workforce" }}{% endblock %}
+{% block seo_desc %}Explore international career avenues and visa procedures. Vetted job listings across Dubai, Riyadh, Jeddah, Dammam, Saudi Arabia, Qatar, Kuwait, Romania, Poland, Malta, Serbia, Russia, and Turkey.{% endblock %}
+
+{% block content %}
+<!-- ==========================================
+     1. HERO BREADCRUMB HEADER
+     ========================================== -->
+<section class="bg-gradient-premium text-white py-5 position-relative overflow-hidden">
+    <div class="container position-relative z-1 py-3 text-center">
+        <nav aria-label="breadcrumb" class="d-inline-block">
+            <ol class="breadcrumb justify-content-center bg-white bg-opacity-10 py-2 px-3 rounded-pill mb-3">
+                <li class="breadcrumb-item"><a href="{% url 'core:index' %}" class="text-white text-decoration-none fs-13 poppins-medium">Home</a></li>
+                <li class="breadcrumb-item active text-white text-opacity-50 fs-13 poppins-medium" aria-current="page">Destinations</li>
+            </ol>
+        </nav>
+        <h1 class="display-4 poppins-bold mb-2">Sourcing Destinations</h1>
+        <p class="lead text-light-muted max-w-700 mx-auto fs-16 poppins-regular">
+            Connecting qualified technicians, skilled professionals, and industrial crews with authorized opportunities in GCC, European, and Transcontinental corridors.
+        </p>
+    </div>
+</section>
+
+<!-- ==========================================
+     2. REGIONAL COHORT GROUPS
+     ========================================== -->
+<section class="section-padding bg-light">
+    <div class="container">
+        
+        <!-- SECTION A: GULF COOPERATION COUNCIL (GCC) HUBS -->
+        <div class="row g-4 mb-5">
+            <div class="col-12 text-center mb-3" data-aos="fade-up">
+                <span class="badge bg-warning text-dark uppercase poppins-bold px-3 py-2 mb-2 fs-13">Middle East Channels</span>
+                <h2 class="poppins-bold display-6">GCC Sourcing Hubs & Cities</h2>
+                <p class="text-muted max-w-600 mx-auto">Explore recruitment guidelines, medical standards, and active listings in primary Middle Eastern cities and countries.</p>
+            </div>
+        </div>
+
+        <div class="row g-4 mb-5 justify-content-center">
+            {% for country in countries %}
+                {% if country.name == "Dubai" or country.name == "Saudi Arabia" or country.name == "Riyadh" or country.name == "Jeddah" or country.name == "Dammam" or country.name == "Qatar" or country.name == "Kuwait" %}
+                    <div class="col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="{{ forloop.counter }}00">
+                        <div class="card rounded-card border-0 shadow-sm bg-white overflow-hidden h-100 d-flex flex-column transition-all hover-translate">
+                            
+                            <div class="position-relative" style="height: 180px;">
+                                {% if country.banner_image %}
+                                    <img src="{{ country.banner_image.url }}" class="w-100 h-100 object-fit-cover" alt="{{ country.name }}">
+                                {% else %}
+                                    <div class="w-100 h-100 bg-primary d-flex align-items-center justify-content-center text-white bg-opacity-95 position-relative">
+                                        <div class="text-center p-3">
+                                            <i class="fa-solid fa-building-circle-check fs-1 opacity-10 mb-2"></i>
+                                            <h4 class="poppins-bold mb-0">{{ country.name }}</h4>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                
+                                {% if country.name == "Dubai" or country.name == "Saudi Arabia" or country.name == "Riyadh" %}
+                                    <span class="badge bg-warning text-dark position-absolute top-3 start-3 px-3 py-2 poppins-bold fs-11 uppercase shadow">
+                                        <i class="fa-solid fa-crown me-1"></i> Premium Route
+                                    </span>
+                                {% endif %}
+
+                                <span class="badge bg-primary position-absolute top-3 end-3 px-3 py-2 poppins-semibold fs-11 shadow-sm">
+                                    {{ country.jobs.count|default:"0" }} Vacancies
+                                </span>
+                            </div>
+
+                            <div class="p-4 d-flex flex-column flex-grow-1 justify-content-between">
+                                <div>
+                                    <h3 class="poppins-bold text-dark fs-5 mb-2 d-flex align-items-center gap-2">
+                                        <i class="fa-solid fa-location-dot text-danger fs-5"></i>
+                                        {{ country.name }}
+                                    </h3>
+                                    <p class="text-muted fs-14 poppins-regular mb-4">
+                                        {{ country.description }}
+                                    </p>
+                                </div>
+                                
+                                <div class="d-grid pt-3 border-top mt-auto">
+                                    <a href="{% url 'jobs:country_detail' country.slug %}" class="btn btn-outline-custom w-100 py-2 poppins-semibold fs-14">
+                                        View Sourcing Guide <i class="fa-solid fa-arrow-right-long ms-1 fs-12"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+
+        <!-- SECTION B: EUROPEAN UNION CORRIDORS -->
+        <div class="row g-4 mb-5 pt-5 border-top">
+            <div class="col-12 text-center mb-3" data-aos="fade-up">
+                <span class="badge bg-secondary text-white uppercase poppins-bold px-3 py-2 mb-2 fs-13">Schengen & EU Permits</span>
+                <h2 class="poppins-bold display-6">European Union Corridors</h2>
+                <p class="text-muted max-w-600 mx-auto">Explore structured long-term contracts, work permit processing, and documentation standards for European destinations.</p>
+            </div>
+        </div>
+
+        <div class="row g-4 mb-5 justify-content-center">
+            {% for country in countries %}
+                {% if country.name == "Romania" or country.name == "Malta" or country.name == "Poland" or country.name == "Serbia" %}
+                    <div class="col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="{{ forloop.counter }}00">
+                        <div class="card rounded-card border-0 shadow-sm bg-white overflow-hidden h-100 d-flex flex-column transition-all hover-translate">
+                            
+                            <div class="position-relative" style="height: 180px;">
+                                {% if country.banner_image %}
+                                    <img src="{{ country.banner_image.url }}" class="w-100 h-100 object-fit-cover" alt="{{ country.name }}">
+                                {% else %}
+                                    <div class="w-100 h-100 bg-secondary d-flex align-items-center justify-content-center text-white bg-opacity-80">
+                                        <div class="text-center p-3">
+                                            <i class="fa-solid fa-earth-europe fs-1 opacity-10 mb-2"></i>
+                                            <h4 class="poppins-bold mb-0">{{ country.name }}</h4>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                
+                                <span class="badge bg-primary position-absolute top-3 end-3 px-3 py-2 poppins-semibold fs-11 shadow-sm">
+                                    {{ country.jobs.count|default:"0" }} Vacancies
+                                </span>
+                            </div>
+
+                            <div class="p-4 d-flex flex-column flex-grow-1 justify-content-between">
+                                <div>
+                                    <h3 class="poppins-bold text-dark fs-5 mb-2 d-flex align-items-center gap-2">
+                                        <i class="fa-solid fa-passport text-primary fs-5"></i>
+                                        {{ country.name }}
+                                    </h3>
+                                    <p class="text-muted fs-14 poppins-regular mb-4">
+                                        {{ country.description }}
+                                    </p>
+                                </div>
+                                
+                                <div class="d-grid pt-3 border-top mt-auto">
+                                    <a href="{% url 'jobs:country_detail' country.slug %}" class="btn btn-outline-custom w-100 py-2 poppins-semibold fs-14">
+                                        Explore Work Permits <i class="fa-solid fa-arrow-right-long ms-1 fs-12"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+
+        <!-- SECTION C: TRANSCONTINENTAL & EXPANDING MARKETS -->
+        <div class="row g-4 mb-5 pt-5 border-top">
+            <div class="col-12 text-center mb-3" data-aos="fade-up">
+                <span class="badge bg-dark text-white uppercase poppins-bold px-3 py-2 mb-2 fs-13">Emerging Pathways</span>
+                <h2 class="poppins-bold display-6">Transcontinental Markets</h2>
+                <p class="text-muted max-w-600 mx-auto">Explore massive civil, petroleum, and engineering project pathways in transcontinental regions.</p>
+            </div>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+            {% for country in countries %}
+                {% if country.name == "Russia" or country.name == "Turkey" %}
+                    <div class="col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="{{ forloop.counter }}00">
+                        <div class="card rounded-card border-0 shadow-sm bg-white overflow-hidden h-100 d-flex flex-column transition-all hover-translate">
+                            
+                            <div class="position-relative" style="height: 180px;">
+                                {% if country.banner_image %}
+                                    <img src="{{ country.banner_image.url }}" class="w-100 h-100 object-fit-cover" alt="{{ country.name }}">
+                                {% else %}
+                                    <div class="w-100 h-100 bg-dark d-flex align-items-center justify-content-center text-white bg-opacity-90">
+                                        <div class="text-center p-3">
+                                            <i class="fa-solid fa-globe fs-1 opacity-10 mb-2"></i>
+                                            <h4 class="poppins-bold mb-0">{{ country.name }}</h4>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                
+                                <span class="badge bg-primary position-absolute top-3 end-3 px-3 py-2 poppins-semibold fs-11 shadow-sm">
+                                    {{ country.jobs.count|default:"0" }} Vacancies
+                                </span>
+                            </div>
+
+                            <div class="p-4 d-flex flex-column flex-grow-1 justify-content-between">
+                                <div>
+                                    <h3 class="poppins-bold text-dark fs-5 mb-2 d-flex align-items-center gap-2">
+                                        <i class="fa-solid fa-earth-asia text-secondary fs-5"></i>
+                                        {{ country.name }}
+                                    </h3>
+                                    <p class="text-muted fs-14 poppins-regular mb-4">
+                                        {{ country.description }}
+                                    </p>
+                                </div>
+                                
+                                <div class="d-grid pt-3 border-top mt-auto">
+                                    <a href="{% url 'jobs:country_detail' country.slug %}" class="btn btn-outline-custom w-100 py-2 poppins-semibold fs-14">
+                                        Explore Opportunities <i class="fa-solid fa-arrow-right-long ms-1 fs-12"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                {% endif %}
+            {% empty %}
+                <div class="col-12 text-center py-5">
+                    <div class="text-muted mb-3"><i class="fa-solid fa-earth-europe"></i></div>
+                    <h3 class="poppins-bold fs-5 text-dark">No Destinations Found</h3>
+                    <p class="text-muted max-w-400 mx-auto fs-14">Our operational destinations list is currently updating. Please check back shortly for updated directories.</p>
+                    <a href="{% url 'core:contact' %}" class="btn btn-primary-custom px-4 py-2 mt-2">Contact Head Office</a>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block seo_title %}Recruitment & Placement Services | Elevate Workforce{% endblock %}
+{% block seo_desc %}Explore our structured recruitment solutions: Executive search, skilled and industrial manpower, visa processing, compliance audits, and bulk mobilization.{% endblock %}
+
+{% block content %}
+<!-- ==========================================
+     1. HERO HERO BANNER
+     ========================================== -->
+<section class="bg-gradient-premium text-white py-5 position-relative overflow-hidden">
+    <div class="container position-relative z-1 py-3 text-center">
+        <nav aria-label="breadcrumb" class="d-inline-block">
+            <ol class="breadcrumb justify-content-center bg-white bg-opacity-10 py-2 px-3 rounded-pill mb-3">
+                <li class="breadcrumb-item"><a href="{% url 'core:index' %}" class="text-white text-decoration-none fs-13 poppins-medium">Home</a></li>
+                <li class="breadcrumb-item active text-white text-opacity-50 fs-13 poppins-medium" aria-current="page">Services</li>
+            </ol>
+        </nav>
+        <h1 class="display-4 poppins-bold mb-2">Our Capabilities</h1>
+        <p class="lead text-light-muted max-w-600 mx-auto fs-16 poppins-regular">
+            End-to-end recruitment pipelines, logistics management, and compliance advisory for dynamic global businesses.
+        </p>
+    </div>
+</section>
+
+<!-- ==========================================
+     2. KEY RECRUITMENT SOLUTIONS PORTFOLIO
+     ========================================== -->
+<section class="section-padding bg-white">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <span class="badge bg-primary bg-opacity-10 text-primary uppercase poppins-bold px-3 py-2 mb-2 fs-13">Placement Sourcing</span>
+            <h2 class="poppins-bold display-6">Talent Sourcing & Staffing</h2>
+            <p class="text-muted max-w-600 mx-auto">We identify, evaluate, and mobilize highly qualified profiles across multiple categories.</p>
+        </div>
+
+        <div class="row g-4">
+            <!-- Service 1 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card card-glass service-card p-4 h-100 border shadow-sm" style="--card-delay: 100ms;">
+                    <div class="text-primary mb-3 fs-1"><i class="fa-solid fa-earth-americas"></i></div>
+                    <h3 class="poppins-bold fs-5 mb-2 text-dark">International Recruitment</h3>
+                    <p class="text-muted fs-14 mb-0">
+                        Bridging geographic gaps to match Indian talent with industry-leading entities in Saudi Arabia, United Arab Emirates, Qatar, Romania, Croatia, Poland, and other countries.
+                    </p>
+                </div>
+            </div>
+            <!-- Service 2 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card card-glass service-card p-4 h-100 border shadow-sm" style="--card-delay: 150ms;">
+                    <div class="text-secondary mb-3 fs-1"><i class="fa-solid fa-user-tie"></i></div>
+                    <h3 class="poppins-bold fs-5 mb-2 text-dark">Executive Search</h3>
+                    <p class="text-muted fs-14 mb-0">
+                        Rigorous headhunting methodologies for executive management, project managers, specialized consultants, and chief engineering officers.
+                    </p>
+                </div>
+            </div>
+            <!-- Service 3 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card card-glass service-card p-4 h-100 border shadow-sm" style="--card-delay: 200ms;">
+                    <div class="text-primary mb-3 fs-1"><i class="fa-solid fa-gears"></i></div>
+                    <h3 class="poppins-bold fs-5 mb-2 text-dark">Skilled Manpower Sourcing</h3>
+                    <p class="text-muted fs-14 mb-0">
+                        Connecting technical assets—including certified pipe welders, HVAC technicians, electrical panel builders, and specialized machinists.
+                    </p>
+                </div>
+            </div>
+            <!-- Service 4 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card card-glass service-card p-4 h-100 border shadow-sm" style="--card-delay: 250ms;">
+                    <div class="text-secondary mb-3 fs-1"><i class="fa-solid fa-helmet-safety"></i></div>
+                    <h3 class="poppins-bold fs-5 mb-2 text-dark">Blue Collar Staffing</h3>
+                    <p class="text-muted fs-14 mb-0">
+                        Mobilizing mass labor, construction helpers, scaffolding crews, agricultural handlers, and warehouse assistants for large-scale operations.
+                    </p>
+                </div>
+            </div>
+            <!-- Service 5 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card card-glass service-card p-4 h-100 border shadow-sm" style="--card-delay: 300ms;">
+                    <div class="text-primary mb-3 fs-1"><i class="fa-solid fa-laptop-code"></i></div>
+                    <h3 class="poppins-bold fs-5 mb-2 text-dark">White Collar Placements</h3>
+                    <p class="text-muted fs-14 mb-0">
+                        Staffing administrative, accounting, IT assistance, project coordinators, safety officers (NEBOSH), and healthcare assistants.
+                    </p>
+                </div>
+            </div>
+            <!-- Service 6 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card card-glass service-card p-4 h-100 border shadow-sm" style="--card-delay: 350ms;">
+                    <div class="text-secondary mb-3 fs-1"><i class="fa-solid fa-users-viewfinder"></i></div>
+                    <h3 class="poppins-bold fs-5 mb-2 text-dark">Bulk Mobilization</h3>
+                    <p class="text-muted fs-14 mb-0">
+                        Handling large-scale, time-sensitive recruitments for infrastructure start-ups, refinery turnarounds, and hospitality launches.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================
+     3. LOGISTICS, COMPLIANCE & TRAVEL COORDINATION
+     ========================================== -->
+<section class="section-padding bg-light">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <span class="badge bg-secondary bg-opacity-10 text-secondary uppercase poppins-bold px-3 py-2 mb-2 fs-13">Operational Excellence</span>
+            <h2 class="poppins-bold display-6">Logistics & Compliance Support</h2>
+            <p class="text-muted max-w-600 mx-auto">We manage administrative steps to ensure safe transitions for our workforce.</p>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+            <!-- Support Service 1 -->
+            <div class="col-md-6 col-lg-3" data-aos="zoom-in" data-aos-delay="100">
+                <div class="card card-glass p-4 text-center border h-100 shadow-sm">
+                    <div class="text-warning mb-3 fs-2"><i class="fa-solid fa-passport"></i></div>
+                    <h4 class="poppins-bold fs-16 mb-2">Visa Processing</h4>
+                    <p class="text-muted fs-13 mb-0">Complete management of consulate endorsements, biometric submissions, and GAMCA medical scheduling.</p>
+                </div>
+            </div>
+            <!-- Support Service 2 -->
+            <div class="col-md-6 col-lg-3" data-aos="zoom-in" data-aos-delay="200">
+                <div class="card card-glass p-4 text-center border h-100 shadow-sm">
+                    <div class="text-primary mb-3 fs-2"><i class="fa-solid fa-file-shield"></i></div>
+                    <h4 class="poppins-bold fs-16 mb-2">Documentation Vetting</h4>
+                    <p class="text-muted fs-13 mb-0">MEA legalizations, apostille services, degree verification, and certificate evaluations.</p>
+                </div>
+            </div>
+            <!-- Support Service 3 -->
+            <div class="col-md-6 col-lg-3" data-aos="zoom-in" data-aos-delay="300">
+                <div class="card card-glass p-4 text-center border h-100 shadow-sm">
+                    <div class="text-secondary mb-3 fs-2"><i class="fa-solid fa-address-book"></i></div>
+                    <h4 class="poppins-bold fs-16 mb-2">Interview Coordination</h4>
+                    <p class="text-muted fs-13 mb-0">Planning virtual rooms or physical testing facilities for panel interviews.</p>
+                </div>
+            </div>
+            <!-- Support Service 4 -->
+            <div class="col-md-6 col-lg-3" data-aos="zoom-in" data-aos-delay="400">
+                <div class="card card-glass p-4 text-center border h-100 shadow-sm">
+                    <div class="text-warning mb-3 fs-2"><i class="fa-solid fa-briefcase-medical"></i></div>
+                    <h4 class="poppins-bold fs-16 mb-2">HR Consultancy</h4>
+                    <p class="text-muted fs-13 mb-0">Evaluating target market salaries, employment contracts, and regional labor standards.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================
+     4. SERVICE CALL TO ACTION
+     ========================================== -->
+<section class="section-padding bg-gradient-premium text-white text-center">
+    <div class="container">
+        <h2 class="display-6 poppins-bold mb-3">Mobilize Your Talent with Elevate Workforce</h2>
+        <p class="lead text-light-muted max-w-600 mx-auto mb-4 fs-16">
+            Partner with us to experience a transparent, streamlined, and fully compliant recruitment lifecycle.
+        </p>
+        <div class="d-flex justify-content-center flex-wrap gap-3">
+            <a href="{% url 'core:contact' %}" class="btn btn-secondary-custom px-4 py-3 poppins-semibold">Send Sourcing Inquiries</a>
+            <a href="{% url 'users:register_candidate' %}" class="btn btn-outline-custom border-white text-white px-4 py-3 poppins-semibold">Create Candidate Profile</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

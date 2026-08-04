@@ -1,0 +1,1065 @@
+{% extends 'base.html' %}
+ 
+{% load static %}
+ 
+{% block seo_title %}{{ seo_settings.default_meta_title|default:"Elevate Workforce | International Sourcing & Manpower Solutions" }}{% endblock %}
+ 
+{% block content %}
+<!-- ==========================================
+     1. HERO HERO BANNER & SEARCH ENGINE
+     ========================================== -->
+<section class="hero-section position-relative d-flex align-items-center py-5 bg-gradient-premium overflow-hidden" style="min-height: 90vh;">
+    <!-- Abstract Design Elements Representing the Phoenix Motif (Hidden on mobile/laptops to ensure perfect responsiveness, low 5% opacity on desktop) -->
+    <div class="position-absolute top-50 start-50 translate-middle d-none d-xl-block" style="width: 50vw; height: 50vw; max-width: 800px; max-height: 800px; opacity: 0.05; pointer-events: none; z-index: 0;">
+        <svg viewBox="0 0 100 100" fill="currentColor" class="text-white w-100 h-100">
+            <path d="M50 15 L80 45 L65 45 L65 75 L35 75 L35 45 L20 45 Z" />
+        </svg>
+    </div>
+    
+    <div class="container position-relative z-1">
+        <div class="row align-items-center g-5">
+            <!-- Branding Text Content (Both lines styled in same highly visible #00AEEF cyan-blue) -->
+            <div class="col-xl-7 col-12 text-center text-xl-start" data-aos="fade-right">
+                <div class="d-inline-flex align-items-center gap-2 mb-3 px-3 py-1 bg-white bg-opacity-10 border border-white border-opacity-15 rounded-pill">
+                    <span class="badge bg-warning text-dark uppercase poppins-bold fs-13">New Openings</span>
+                    <span class="text-white fs-14 poppins-medium">Europe & Gulf Sourcing 2026</span>
+                </div>
+                <h1 class="display-4 poppins-bold mb-3 lh-1-2" style="text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.4);">
+                    <span style="color: #00AEEF;">Fueling Global Careers,</span><br>
+                    <span style="color: #FFFFFF;">Elevating Businesses</span>
+                </h1>
+                <p class="lead text-light-muted mb-4 fs-18 poppins-regular">
+                    Inspired by our emblem—the rising phoenix integrated with the upward vector of progress—we match specialized talent from India with industry leaders in Europe and the Middle East.
+                </p>
+                <div class="d-flex justify-content-center justify-content-xl-start flex-wrap gap-3">
+                    <a href="{% url 'jobs:job_list' %}" class="btn btn-secondary-custom px-4 py-3 poppins-semibold">Explore Vacancies</a>
+                    <a href="{% url 'core:specialization' %}" class="btn btn-outline-custom border-white text-white px-4 py-3 poppins-semibold">Areas of Specialization</a>
+                </div>
+            </div>
+            
+            <!-- Upgraded Search Box Panel (Opaque, Centered, and Auto-Width on Mobile) -->
+            <div class="col-xl-5 col-12" data-aos="fade-left">
+                <div class="card-glass p-4 p-md-5 mx-auto hero-search-card">
+                    <h3 class="poppins-bold text-white mb-4 fs-4 d-flex align-items-center gap-2 justify-content-center justify-content-xl-start">
+                        <i class="fa-solid fa-magnifying-glass text-secondary"></i> Find Overseas Jobs
+                    </h3>
+                    
+                    <!-- High-Legibility Search Form -->
+                    <form action="{% url 'jobs:job_list' %}" method="get" class="hero-search-form">
+                        
+                        <!-- Keyword Field -->
+                        <div class="mb-3 text-start">
+                            <label class="form-label text-white poppins-semibold fs-14">Keyword / Job Title</label>
+                            <div class="input-group shadow-sm">
+                                <span class="input-group-text bg-white border-end-0 text-muted" style="border-radius: 10px 0 0 10px; border: 1px solid #cbd5e1;"><i class="fa-solid fa-briefcase"></i></span>
+                                <input type="text" name="q" class="form-control bg-white text-dark poppins-medium border-start-0 fs-14 py-2" style="border-radius: 0 10px 10px 0; border: 1px solid #cbd5e1; height: 50px;" placeholder="E.g., Welder, Piping Engineer..." value="{{ search_query }}">
+                            </div>
+                        </div>
+                        
+                        <!-- Destination Field -->
+                        <div class="mb-3 text-start">
+                            <label class="form-label text-white poppins-semibold fs-14">Target Destination</label>
+                            <div class="input-group shadow-sm">
+                                <span class="input-group-text bg-white border-end-0 text-muted" style="border-radius: 10px 0 0 10px; border: 1px solid #cbd5e1;"><i class="fa-solid fa-map-location-dot"></i></span>
+                                <select name="destination" class="form-select bg-white text-dark poppins-medium border-start-0 fs-14 py-2" style="border-radius: 0 10px 10px 0; border: 1px solid #cbd5e1; height: 50px;">
+                                    <option value="">Select Destination</option>
+                                    <option value="poland">Poland</option>
+                                    <option value="qatar">Qatar</option>
+                                    <option value="dammam">Dammam</option>
+                                    <option value="jeddah">Jeddah</option>
+                                    <option value="riyadh">Riyadh</option>
+                                    <option value="dubai">Dubai</option>
+                                    <option value="saudi-arabia">Saudi Arabia</option>
+                                    <option value="malta">Malta</option>
+                                    <option value="romania">Romania</option>
+                                    <option value="russia">Russia</option>
+                                    <option value="kuwait">Kuwait</option>
+                                    <option value="turkey">Turkey</option>
+                                    <option value="serbia">Serbia</option>
+                                </select>
+                            </div>
+                        </div>
+ 
+                        <!-- Upgraded Job Sector Field -->
+                        <div class="mb-4 text-start">
+                            <label class="form-label text-white poppins-semibold fs-14">Job Sector</label>
+                            <div class="input-group shadow-sm">
+                                <span class="input-group-text bg-white border-end-0 text-muted" style="border-radius: 10px 0 0 10px; border: 1px solid #cbd5e1;"><i class="fa-solid fa-network-wired"></i></span>
+                                <select name="category" class="form-select bg-white text-dark poppins-medium border-start-0 fs-14 py-2" style="border-radius: 0 10px 10px 0; border: 1px solid #cbd5e1; height: 50px;">
+                                    <option value="">Select Sector</option>
+                                    <option value="oil-gas">Oil & Gas</option>
+                                    <option value="construction">Construction</option>
+                                    <option value="mechanical">Mechanical</option>
+                                    <option value="civil">Civil</option>
+                                    <option value="electrical">Electrical</option>
+                                    <option value="hospitality">Hospitality</option>
+                                    <option value="hotel">Hotel</option>
+                                    <option value="healthcare">Healthcare</option>
+                                    <option value="nursing">Nursing</option>
+                                    <option value="drivers">Drivers</option>
+                                    <option value="warehouse">Warehouse</option>
+                                    <option value="factory">Factory</option>
+                                    <option value="security">Security</option>
+                                    <option value="facility-management">Facility Management</option>
+                                    <option value="aviation">Aviation</option>
+                                    <option value="it">IT / Technology</option>
+                                    <option value="engineering">Engineering</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-secondary-custom w-100 py-3 poppins-bold uppercase tracking-wider shadow">SEARCH VACANCIES</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+ 
+<!-- ==========================================
+     2. LIVE OPERATIONAL STATISTICS
+     ========================================== -->
+<section class="stats-section py-4 bg-white border-bottom shadow-sm">
+    <div class="container">
+        <div class="row g-4 text-center">
+            <div class="col-md-3 col-6 border-end-md" data-aos="fade-up" data-aos-delay="100">
+                <p class="display-6 poppins-bold mb-0 text-primary">{{ stats.candidates|default:"12,450" }}+</p>
+                <p class="poppins-medium text-muted uppercase fs-13 mb-0">Registered Talents</p>
+            </div>
+            <div class="col-md-3 col-6 border-end-md" data-aos="fade-up" data-aos-delay="200">
+                <p class="display-6 poppins-bold mb-0 text-secondary">{{ stats.placements|default:"8,940" }}+</p>
+                <p class="poppins-medium text-muted uppercase fs-13 mb-0">Successful Placements</p>
+            </div>
+            <div class="col-md-3 col-6 border-end-md" data-aos="fade-up" data-aos-delay="300">
+                <p class="display-6 poppins-bold mb-0 text-primary">{{ stats.clients|default:"320" }}+</p>
+                <p class="poppins-medium text-muted uppercase fs-13 mb-0">Corporate Clients</p>
+            </div>
+            <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="400">
+                <p class="display-6 poppins-bold mb-0 text-warning">{{ stats.countries|default:"13" }}</p>
+                <p class="poppins-medium text-muted uppercase fs-13 mb-0">Active Destinations</p>
+            </div>
+        </div>
+    </div>
+</section>
+ 
+<!-- ==========================================
+     3. OFFICIAL PARTNERS (50 COMPANIES WITH VECTOR LOGOS)
+     ========================================== -->
+<section class="section-padding bg-light border-bottom">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <span class="badge bg-secondary bg-opacity-10 text-secondary uppercase poppins-bold px-3 py-2 mb-2 fs-13">Our Network</span>
+            <h2 class="poppins-bold display-6">Trusted Corporate Clients &amp; Employers</h2>
+            <p class="text-muted max-w-600 mx-auto">Vetted international employers and industrial groups defined in our credential portfolio spanning Europe and the Gulf.</p>
+        </div>
+ 
+        <!-- Responsive Corporate Clients Grid -->
+        <div class="client-logo-grid" data-aos="fade-up">
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/lulu.svg' %}"
+                         alt="LuLu Group logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">Lulu</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/alayed.svg' %}"
+                         alt="ALAYED logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">ALAYED</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/al-babtain.svg' %}"
+                         alt="Al-Babtain logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">Al-Babtain</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/al-tawi.svg' %}"
+                         alt="AL-TAWI logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">Al-Tawi</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/al-andalus.svg' %}"
+                         alt="Al-Andalus logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">Al-Andalus</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/rashed-alrashed.svg' %}"
+                         alt="Rashed AlRashed logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">Al-Rashed</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/al-naboodah.svg' %}"
+                         alt="Al Naboodah logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">Al-Naboodh</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/zamil-om.svg' %}"
+                         alt="Zamil O&M logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">Zamil</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/kb-group.svg' %}"
+                         alt="KB Group logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">KB-group</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/aac.svg' %}"
+                         alt="AAC logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">AAC</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/abr.svg' %}"
+                         alt="ABR logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">ABR</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/afras.svg' %}"
+                         alt="AFRAS logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">AFRAS</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/al-mousa.svg' %}"
+                         alt="Al Mousa logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">Al Mousa</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/atc.svg' %}"
+                         alt="ATC logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">ATC</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/al-abdul-karim.svg' %}"
+                         alt="Al Abdul Karim logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">Al Abdul Karim</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/al-ayuni.svg' %}"
+                         alt="Al Ayuni logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">Al Ayuni</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/almishal.svg' %}"
+                         alt="Almishal logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">Almishal</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/arnon.svg' %}"
+                         alt="ARNON logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">ARNON</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/andalus-holding-company.svg' %}"
+                         alt="Andalus Holding Company logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">Andalus Holding Company</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/attejarat.svg' %}"
+                         alt="Attejarat logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">Attejarat</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/fipco.svg' %}"
+                         alt="FIPCO logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">FIPCO</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/gce-gheena.svg' %}"
+                         alt="GCE Gheena logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">GCE Gheena</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/go-samama.svg' %}"
+                         alt="Go Samama logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">Go Samama</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/gulf.svg' %}"
+                         alt="Gulf logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">Gulf</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/hassan-alam.svg' %}"
+                         alt="Hassan Alam logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">Hassan Alam</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/integrated.svg' %}"
+                         alt="Integrated logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">Integrated</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/kerry.svg' %}"
+                         alt="Kerry logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">Kerry</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/kfb.svg' %}"
+                         alt="KFB logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">KFB</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/mmp.svg' %}"
+                         alt="MMP logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">MMP</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/rajhi.svg' %}"
+                         alt="Rajhi logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">Rajhi</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/reefco.svg' %}"
+                         alt="Reefco logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">Reefco</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/riyadh.svg' %}"
+                         alt="Riyadh logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">Riyadh</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/ruk.svg' %}"
+                         alt="RUK logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">RUK</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/sanabel-al-salam.svg' %}"
+                         alt="Sanabel Al Salam logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">Sanabel Al Salam</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/sapac.svg' %}"
+                         alt="SAPAC logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">SAPAC</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/sasco.svg' %}"
+                         alt="Sasco logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">Sasco</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/satco.svg' %}"
+                         alt="SATCO logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">SATCO</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/saudi-bilda-group.svg' %}"
+                         alt="Saudi Bilda Group logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">Saudi Bilda Group</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/saudi-icon.svg' %}"
+                         alt="Saudi Icon logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">Saudi Icon</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/shalfa.svg' %}"
+                         alt="Shalfa logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">Shalfa</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/tamimi.svg' %}"
+                         alt="Tamimi logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">Tamimi</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/twaik.svg' %}"
+                         alt="Twaik logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">Twaik</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/ucc-uni.svg' %}"
+                         alt="UCC logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">UCC</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/al-arab.svg' %}"
+                         alt="Al Arab logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">Al Arab</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/al-jazira.svg' %}"
+                         alt="Al Jazira logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">Al Jazira</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/al-watania.svg' %}"
+                         alt="Al Watania logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">Al Watania</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/wajahat.svg' %}"
+                         alt="Wajahat logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">Wajahat</span>
+            </div>
+ 
+            <div class="client-logo-card">
+                <div class="client-logo-frame">
+                    <img src="{% static 'images/clients/yamama.svg' %}"
+                         alt="Yamama logo"
+                         class="client-logo-image"
+                         loading="lazy"
+                         decoding="async"
+                         width="220" height="110"
+                         onerror="this.closest('.client-logo-card').style.display='none';">
+                </div>
+                <span class="poppins-semibold text-dark client-logo-title">Yamama</span>
+            </div>
+        </div>
+    </div>
+</section>
+ 
+<!-- ==========================================
+     4. FEATURED OVERSEAS VACANCIES
+     ========================================== -->
+<section class="section-padding">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <span class="badge bg-primary bg-opacity-10 text-primary uppercase poppins-bold px-3 py-2 mb-2 fs-13">Hot Jobs</span>
+            <h2 class="poppins-bold display-6">Featured International Opportunities</h2>
+            <p class="text-muted max-w-600 mx-auto">Explore premium career pathways with our accredited corporate partners in Europe and the Gulf.</p>
+        </div>
+        
+        <div class="row g-4">
+            {% for job in featured_jobs %}
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:"1" }}00">
+                    <div class="card card-glass h-100 p-4 border border-opacity-10 d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <span class="badge bg-secondary text-white uppercase poppins-semibold fs-12">{{ job.job_type }}</span>
+                            <span class="text-muted fs-13 poppins-medium"><i class="fa-solid fa-calendar-day me-1"></i> {{ job.created_at|date:"M d, Y" }}</span>
+                        </div>
+                        
+                        <h4 class="poppins-bold fs-5 mb-2 text-primary">{{ job.title }}</h4>
+                        <p class="text-muted fs-14 mb-3 poppins-semibold d-flex align-items-center gap-1">
+                            <i class="fa-solid fa-building text-secondary"></i> {{ job.employer.company_name }}
+                        </p>
+                        
+                        <div class="border-top border-bottom py-2 my-3">
+                            <div class="row text-center fs-13 text-muted">
+                                <div class="col-6 border-end">
+                                    <p class="mb-0 uppercase poppins-medium fs-11 text-muted">Location</p>
+                                    <p class="mb-0 text-dark poppins-semibold"><i class="fa-solid fa-location-dot text-danger me-1"></i> {{ job.destination.name }}</p>
+                                </div>
+                                <div class="col-6">
+                                    <p class="mb-0 uppercase poppins-medium fs-11 text-muted">Salary Range</p>
+                                    <p class="mb-0 text-dark poppins-semibold">{{ job.salary_range|default:"Competitive" }}</p>
+                                </div>
+                            </div>
+                        </div>
+ 
+                        <p class="fs-14 text-muted mb-4 flex-grow-1">
+                            {{ job.description|striptags|truncatewords:20 }}
+                        </p>
+                        
+                        <div class="d-grid mt-auto">
+                            <a href="{% url 'jobs:job_detail' job.slug %}" class="btn btn-outline-custom w-100">View Vacancy & Apply</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12 text-center py-5">
+                    <div class="text-muted mb-3"><i class="fa-solid fa-briefcase fs-1"></i></div>
+                    <p class="poppins-medium text-muted">No vacancies are currently flagged as featured. Please view all active job listings.</p>
+                    <a href="{% url 'jobs:job_list' %}" class="btn btn-primary-custom">Browse Job Directory</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+ 
+<!-- ==========================================
+     5. RECRUITMENT FLOW & METHODOLOGY
+     ========================================== -->
+<section class="section-padding bg-gradient-premium text-white">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <span class="badge bg-warning text-dark uppercase poppins-bold px-3 py-2 mb-2 fs-13">Our Workflow</span>
+            <h2 class="poppins-bold display-6 text-white">The Recruitment Sequence</h2>
+            <p class="text-light-muted max-w-600 mx-auto">Bridging international talent with efficiency through our rigorous operational framework.</p>
+        </div>
+        
+        <div class="row g-4 justify-content-center">
+            <!-- Step 1 -->
+            <div class="col-lg-2 col-md-4 col-sm-6 text-center" data-aos="zoom-in" data-aos-delay="100">
+                <div class="step-card p-3">
+                    <div class="step-icon-wrapper mx-auto mb-3 bg-white bg-opacity-10 rounded-circle d-flex justify-content-center align-items-center" style="width: 80px; height: 80px;">
+                        <i class="fa-solid fa-user-plus text-warning fs-3"></i>
+                    </div>
+                    <h5 class="poppins-bold fs-16 mb-2">1. Onboarding</h5>
+                    <p class="fs-13 text-light-muted">Register your career preferences and upload your professional credentials.</p>
+                </div>
+            </div>
+            <!-- Step 2 -->
+            <div class="col-lg-2 col-md-4 col-sm-6 text-center" data-aos="zoom-in" data-aos-delay="200">
+                <div class="step-card p-3">
+                    <div class="step-icon-wrapper mx-auto mb-3 bg-white bg-opacity-10 rounded-circle d-flex justify-content-center align-items-center" style="width: 80px; height: 80px;">
+                        <i class="fa-solid fa-magnifying-glass-chart text-secondary fs-3"></i>
+                    </div>
+                    <h5 class="poppins-bold fs-16 mb-2">2. Evaluation</h5>
+                    <p class="fs-13 text-light-muted">Our specialized technical panel audits qualifications and CV credentials.</p>
+                </div>
+            </div>
+            <!-- Step 3 -->
+            <div class="col-lg-2 col-md-4 col-sm-6 text-center" data-aos="zoom-in" data-aos-delay="300">
+                <div class="step-card p-3">
+                    <div class="step-icon-wrapper mx-auto mb-3 bg-white bg-opacity-10 rounded-circle d-flex justify-content-center align-items-center" style="width: 80px; height: 80px;">
+                        <i class="fa-solid fa-id-card-clip text-warning fs-3"></i>
+                    </div>
+                    <h5 class="poppins-bold fs-16 mb-2">3. Shortlisting</h5>
+                    <p class="fs-13 text-light-muted">Corporate clients select candidates for virtual or physical panel interviews.</p>
+                </div>
+            </div>
+            <!-- Step 4 -->
+            <div class="col-lg-2 col-md-4 col-sm-6 text-center" data-aos="zoom-in" data-aos-delay="400">
+                <div class="step-card p-3">
+                    <div class="step-icon-wrapper mx-auto mb-3 bg-white bg-opacity-10 rounded-circle d-flex justify-content-center align-items-center" style="width: 80px; height: 80px;">
+                        <i class="fa-solid fa-passport text-secondary fs-3"></i>
+                    </div>
+                    <h5 class="poppins-bold fs-16 mb-2">4. Processing</h5>
+                    <p class="fs-13 text-light-muted">We coordinate medical exams, visa endorsement, and government emigration steps.</p>
+                </div>
+            </div>
+            <!-- Step 5 -->
+            <div class="col-lg-2 col-md-4 col-sm-6 text-center" data-aos="zoom-in" data-aos-delay="500">
+                <div class="step-card p-3">
+                    <div class="step-icon-wrapper mx-auto mb-3 bg-white bg-opacity-10 rounded-circle d-flex justify-content-center align-items-center" style="width: 80px; height: 80px;">
+                        <i class="fa-solid fa-plane-departure text-warning fs-3"></i>
+                    </div>
+                    <h5 class="poppins-bold fs-16 mb-2">5. Mobilization</h5>
+                    <p class="fs-13 text-light-muted">Pre-departure briefing and safe transition support to the destination.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+ 
+<!-- ==========================================
+     6. WHY CHOOSE US
+     ========================================== -->
+<section class="section-padding bg-white">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6" data-aos="fade-right">
+                <span class="badge bg-primary bg-opacity-10 text-primary uppercase poppins-bold px-3 py-2 mb-2 fs-13">Why Choose Us</span>
+                <h2 class="poppins-bold display-6 mb-4">Strategic Recruitment Partners</h2>
+                <p class="text-muted mb-4 fs-16 poppins-regular">
+                    Our leadership sets high standards in international manpower mobilization. We navigate the complexities of overseas recruitment with transparency and legal compliance.
+                </p>
+                
+                <div class="row g-3">
+                    <div class="col-12 d-flex align-items-start gap-3">
+                        <div class="text-secondary"><i class="fa-solid fa-circle-check fs-4"></i></div>
+                        <div>
+                            <h5 class="poppins-bold fs-16 mb-1">Accredited Compliance Framework</h5>
+                            <p class="text-muted fs-14 mb-0">Full compliance with Ministry of External Affairs (MEA), India, and target nation laws.</p>
+                        </div>
+                    </div>
+                    <div class="col-12 d-flex align-items-start gap-3">
+                        <div class="text-secondary"><i class="fa-solid fa-circle-check fs-4"></i></div>
+                        <div>
+                            <h5 class="poppins-bold fs-16 mb-1">Technical Assessments</h5>
+                            <p class="text-muted fs-14 mb-0">Rigorous candidate vetting and skill validations prior to client presentation.</p>
+                        </div>
+                    </div>
+                    <div class="col-12 d-flex align-items-start gap-3">
+                        <div class="text-secondary"><i class="fa-solid fa-circle-check fs-4"></i></div>
+                        <div>
+                            <h5 class="poppins-bold fs-16 mb-1">End-to-End Mobilization</h5>
+                            <p class="text-muted fs-14 mb-0">Complete management of medical checks, visa endorsements, and travel mobilization.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6" data-aos="fade-left">
+                <div class="card card-glass p-5 border shadow-sm">
+                    <div class="team-avatar profile-avatar mx-auto mb-4">
+                        <img class="profile-photo" src="{% static 'images/team/owner.jpg' %}" onerror="this.onerror=null;this.src='{% static 'images/team/placeholder-avatar.svg' %}';" alt="Mirza Khalique Beg" loading="lazy">
+                    </div>
+                    <div class="text-center mb-4">
+                        <h3 class="poppins-bold mb-1">Founder's Message</h3>
+                        <p class="text-muted fs-14 mb-0">Mirza Khalique Beg</p>
+                    </div>
+                    <blockquote class="blockquote poppins-regular fs-15 text-dark mb-4 italic">
+                        "At Elevate Workforce, we look beyond resume details. We look at human potential and corporate trajectories. Inspired by the phoenix, we are committed to helping candidates realize their full career potential."
+                    </blockquote>
+                    <a href="{% url 'core:about' %}" class="btn btn-primary-custom">Read Executive Vision</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+ 
+<!-- ==========================================
+     8. DYNAMIC TESTIMONIALS SLIDER
+     ========================================== -->
+{% if testimonials %}
+<section class="section-padding bg-light">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <span class="badge bg-primary bg-opacity-10 text-primary uppercase poppins-bold px-3 py-2 mb-2 fs-13">Feedback</span>
+            <h2 class="poppins-bold display-6">Testimonials</h2>
+            <p class="text-muted max-w-600 mx-auto">Hear from our placed candidates and corporate global partners.</p>
+        </div>
+        
+        <div class="swiper testimonials-slider py-4" data-aos="fade-up">
+            <div class="swiper-wrapper">
+                {% for test in testimonials %}
+                    <div class="swiper-slide">
+                        <div class="card-glass p-4 h-100 d-flex flex-column justify-content-between border shadow-sm">
+                            <div>
+                                <div class="text-warning mb-3">
+                                    {% for i in "12345" %}
+                                        <i class="fa-solid fa-star"></i>
+                                    {% endfor %}
+                                </div>
+                                <p class="text-muted fs-14 poppins-regular mb-4">"{{ test.feedback }}"</p>
+                            </div>
+                            <div class="d-flex align-items-center gap-3 mt-auto pt-3 border-top">
+                                {% if test.avatar and test.avatar.name %}
+                                    <img src="{{ test.avatar.url }}" class="rounded-circle object-fit-cover" style="width: 50px; height: 50px;" alt="{{ test.name }}">
+                                {% else %}
+                                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px; font-weight: bold;">
+                                        {{ test.name|slice:":1" }}
+                                    </div>
+                                {% endif %}
+                                <div>
+                                    <h5 class="poppins-bold fs-15 mb-0 text-dark">{{ test.name }}</h5>
+                                    <p class="text-muted fs-12 mb-0">{{ test.designation }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="swiper-pagination position-relative mt-4"></div>
+        </div>
+    </div>
+</section>
+{% endif %}
+ 
+<!-- ==========================================
+     9. ACCORDION FAQ PORTAL
+     ========================================== -->
+{% if faqs %}
+<section class="section-padding">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <span class="badge bg-primary bg-opacity-10 text-primary uppercase poppins-bold px-3 py-2 mb-2 fs-13">Questions</span>
+            <h2 class="poppins-bold display-6">Frequently Asked Questions</h2>
+            <p class="text-muted max-w-600 mx-auto">Common recruitment process queries answered by our compliance experts.</p>
+        </div>
+        
+        <div class="row justify-content-center">
+            <div class="col-lg-8" data-aos="fade-up">
+                <div class="accordion accordion-flush shadow-sm rounded-3 overflow-hidden" id="faqAccordion">
+                    {% for faq in faqs %}
+                        <div class="accordion-item border-bottom border-light">
+                            <h3 class="accordion-header" id="flush-heading-{{ faq.id }}">
+                                <button class="accordion-button collapsed poppins-semibold fs-15 py-3" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-{{ faq.id }}" aria-expanded="false" aria-controls="flush-collapse-{{ faq.id }}">
+                                    {{ faq.question }}
+                                </button>
+                            </h3>
+                            <div id="flush-collapse-{{ faq.id }}" class="accordion-collapse collapse" aria-labelledby="flush-heading-{{ faq.id }}" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted fs-14 poppins-regular bg-light">
+                                    {{ faq.answer|linebreaks }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+ 
+<!-- ==========================================
+     10. HIGH CONVERTING CALL TO ACTION
+     ========================================== -->
+<section class="section-padding bg-gradient-premium text-white text-center position-relative overflow-hidden">
+    <div class="container position-relative z-1">
+        <h2 class="display-5 poppins-bold mb-3">Ready to Advance Your Global Journey?</h2>
+        <p class="lead text-light-muted max-w-600 mx-auto mb-4 fs-18">
+            Connect with Elevate Workforce today. Whether you are a skilled candidate seeking global positions or a corporate employer looking for professional talent, our team is here to support you.
+        </p>
+        <div class="d-flex justify-content-center flex-wrap gap-3">
+            <a href="{% url 'users:register_candidate' %}" class="btn btn-secondary-custom px-4 py-3 poppins-semibold">Register as Candidate</a>
+            <a href="{% url 'core:contact' %}" class="btn btn-outline-custom border-white text-white px-4 py-3 poppins-semibold">Get in Touch</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

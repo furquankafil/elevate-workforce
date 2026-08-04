@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block seo_title %}Privacy Policy | Elevate Workforce{% endblock %}
+{% block seo_desc %}Understand how Elevate Workforce secures, stores, and processes candidate resumes, professional logs, and corporate identity profiles.{% endblock %}
+
+{% block content %}
+<!-- ==========================================
+     1. HERO HERO BANNER
+     ========================================== -->
+<section class="bg-gradient-premium text-white py-5 position-relative overflow-hidden">
+    <div class="container position-relative z-1 py-3 text-center">
+        <h1 class="display-5 poppins-bold mb-2">Privacy Policy</h1>
+        <p class="lead text-light-muted max-w-600 mx-auto fs-16 poppins-regular">
+            Last Updated: March 2026. Review our commitment to candidate data integrity and digital secure encryption.
+        </p>
+    </div>
+</section>
+
+<!-- ==========================================
+     2. REGULATORY CONTENT
+     ========================================== -->
+<section class="section-padding bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            
+            <div class="col-lg-9">
+                <div class="card border-0 p-4 p-md-5 shadow-sm rounded-3 bg-white text-dark">
+                    <article class="poppins-regular fs-15 lh-lg text-muted">
+                        
+                        <p class="mb-4">
+                            At <strong>Elevate Workforce</strong>, we prioritize the privacy and security of candidate resumes, verification credentials, and employer identity files. Under the leadership of director <strong>Mirza Khalique Beg</strong>, we operate with maximum transparency and full compliance with global recruitment data laws.
+                        </p>
+
+                        <!-- Section 1 -->
+                        <h3 class="poppins-bold text-primary fs-5 mt-5 mb-3 border-bottom pb-2">
+                            1. Sourcing Data We Collect
+                        </h3>
+                        <p class="mb-3">
+                            When users register on our digital portal as a Candidate or Corporate Client, we collect essential, self-provided credentials:
+                        </p>
+                        <ul class="mb-4">
+                            <li><strong>Candidate Data:</strong> First and last name, email addresses, phone/WhatsApp contact coordinates, current geographic location, career experience details, skill metrics, and physical copies of resumes (PDF, DOC formats).</li>
+                            <li><strong>Employer Data:</strong> Corporate name, primary registration keys, website domains, company logo files, and office address credentials.</li>
+                        </ul>
+
+                        <!-- Section 2 -->
+                        <h3 class="poppins-bold text-primary fs-5 mt-5 mb-3 border-bottom pb-2">
+                            2. Sourcing Data Processing & Usage
+                        </h3>
+                        <p class="mb-3">
+                            Any data processed by our system serves specific recruitment operations:
+                        </p>
+                        <ul class="mb-4">
+                            <li>Matching candidate credentials against active job vacancies in Europe and the Middle East.</li>
+                            <li>Enabling verified corporate partners to inspect candidate CV files for headhunting assessment.</li>
+                            <li>Coordinating biometric certifications, medical test scheduling (GAMCA), and embassy visa endorsements.</li>
+                            <li>Sending transaction alerts, interview timeline schedules, and newsletters to active subscribers.</li>
+                        </ul>
+
+                        <!-- Section 3 -->
+                        <h3 class="poppins-bold text-primary fs-5 mt-5 mb-3 border-bottom pb-2">
+                            3. Sourcing Data Retention & Security
+                        </h3>
+                        <p class="mb-4">
+                            Candidate profiles and uploaded CV files are stored in our secure database cloud. We use industry-standard encryption protocols (SSL), password hashing algorithms, and cross-site scripting (XSS) protections to prevent unauthorized data access. Resume files are snapshotted during application to preserve original data contexts.
+                        </p>
+
+                        <!-- Section 4 -->
+                        <h3 class="poppins-bold text-primary fs-5 mt-5 mb-3 border-bottom pb-2">
+                            4. Sharing Protocols with Third-Parties
+                        </h3>
+                        <p class="mb-4">
+                            We share candidate CVs and qualifications *only* with verified, accredited corporate partners who have published active vacancies matching the candidate's career goals. We never sell, rent, or lease personal identifiers or candidate databases to third-party marketing networks.
+                        </p>
+
+                        <!-- Section 5 -->
+                        <h3 class="poppins-bold text-primary fs-5 mt-5 mb-3 border-bottom pb-2">
+                            5. Your Data Control Rights
+                        </h3>
+                        <p class="mb-4">
+                            As a registered user of Elevate Workforce, you have full control over your profile. You can log into your Candidate Dashboard to modify skill metrics, update WhatsApp numbers, change password parameters, or replace old CV files. Users may request complete removal of their database profile by contacting our compliance division at our New Delhi office.
+                        </p>
+
+                        <!-- Section 6 -->
+                        <h3 class="poppins-bold text-primary fs-5 mt-5 mb-3 border-bottom pb-2">
+                            6. Contact Information
+                        </h3>
+                        <p class="mb-0">
+                            For privacy inquiries or compliance checks, please connect directly with our director:
+                            <br>
+                            <strong>Director:</strong> Mirza Khalique Beg
+                            <br>
+                            <strong>Head Office Address:</strong> Office No. T-2, 27-B, 3rd Floor, Khizrabad, Near Lions Hospital, New Delhi – 110025, India
+                            <br>
+                            <strong>Contact Email/Form:</strong> <a href="{% url 'core:contact' %}" class="text-primary text-decoration-none">Submit Support Request</a>
+                        </p>
+
+                    </article>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock %}

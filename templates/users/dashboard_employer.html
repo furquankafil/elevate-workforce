@@ -1,0 +1,200 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block seo_title %}Corporate Employer Dashboard | Elevate Workforce{% endblock %}
+
+{% block content %}
+<!-- ==========================================
+     1. DASHBOARD HERO HEADER
+     ========================================== -->
+<section class="bg-gradient-premium text-white py-4 position-relative overflow-hidden">
+    <div class="container position-relative z-1 py-3">
+        <div class="row align-items-center g-3">
+            <div class="col-md-8">
+                <span class="badge bg-warning text-dark uppercase poppins-bold px-3 py-1 mb-2 fs-12">Corporate Partner Workspace</span>
+                <h1 class="poppins-bold text-white mb-1">Hello, {{ profile.company_name }}</h1>
+                <p class="lead text-light-muted mb-0 fs-15 poppins-regular">
+                    Manage active vacancies, evaluate incoming applicant pools, and coordinate interview panels.
+                </p>
+            </div>
+            <div class="col-md-4 text-md-end d-flex gap-2 justify-content-md-end flex-wrap">
+                <a href="{% url 'jobs:post_job' %}" class="btn btn-secondary-custom px-4 py-2 fs-14 poppins-semibold">
+                    <i class="fa-solid fa-square-plus me-1"></i> Post a Vacancy
+                </a>
+                <a href="{% url 'users:profile' %}" class="btn btn-outline-custom border-white text-white px-4 py-2 fs-14 poppins-semibold">
+                    <i class="fa-solid fa-building-circle-gear me-1"></i> Edit Profile
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================
+     2. WORKSPACE GRID PANELS
+     ========================================== -->
+<section class="section-padding bg-light">
+    <div class="container">
+        
+        <!-- Verification Warnings & Guidelines -->
+        {% if not profile.is_verified_employer %}
+            <div class="alert alert-warning shadow-sm border-0 py-3 px-4 rounded-3 mb-4 d-flex align-items-start gap-3" role="alert">
+                <div class="fs-4 text-warning"><i class="fa-solid fa-triangle-exclamation animate-pulse"></i></div>
+                <div>
+                    <h5 class="poppins-bold text-dark fs-16 mb-1">Profile Verification Pending</h5>
+                    <p class="text-muted fs-13 mb-0 poppins-regular">
+                        Your corporate profile is currently undergoing review by our compliance team. Sourcing features and interview scheduling will be activated once verification is complete. 
+                    </p>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="row g-4">
+            
+            <!-- Left Side-Panel: Corporate Profile Summary (col-lg-4) -->
+            <div class="col-lg-4">
+                <div class="card border-0 p-4 shadow-sm bg-white rounded-3 mb-4">
+                    <div class="text-center pb-4 border-bottom mb-4">
+                        {% if profile.company_logo %}
+                            <img src="{{ profile.company_logo.url }}" class="rounded-3 border object-fit-contain p-2 mb-3 shadow-sm bg-white" style="width: 100px; height: 100px;" alt="{{ profile.company_name }} Logo">
+                        {% else %}
+                            <div class="bg-secondary text-white rounded-3 d-flex align-items-center justify-content-center mx-auto mb-3 shadow" style="width: 80px; height: 80px; font-size: 32px; font-weight: bold;">
+                                <i class="fa-solid fa-building"></i>
+                            </div>
+                        {% endif %}
+                        <h4 class="poppins-bold text-dark fs-5 mb-1">{{ profile.company_name }}</h4>
+                        <span class="badge {% if profile.is_verified_employer %}bg-success-subtle text-success border border-success border-opacity-15{% else %}bg-warning-subtle text-warning border border-warning border-opacity-15{% endif %} py-1 px-3 poppins-semibold fs-11">
+                            <i class="fa-solid {% if profile.is_verified_employer %}fa-circle-check{% else %}fa-clock{% endif %}"></i> 
+                            {% if profile.is_verified_employer %}Accredited Partner{% else %}Verification Pending{% endif %}
+                        </span>
+                    </div>
+
+                    <ul class="list-unstyled poppins-regular fs-13 mb-0">
+                        <li class="d-flex justify-content-between py-2 border-bottom">
+                            <span class="text-muted">Industry Sector</span>
+                            <strong class="text-dark">{{ profile.industry|default:"Not Specified" }}</strong>
+                        </li>
+                        <li class="d-flex justify-content-between py-2 border-bottom">
+                            <span class="text-muted">Website Link</span>
+                            <strong class="text-dark">
+                                {% if profile.company_website %}
+                                    <a href="{{ profile.company_website }}" target="_blank" class="text-primary text-decoration-none">Visit Website</a>
+                                {% else %}
+                                    Not Provided
+                                {% endif %}
+                            </strong>
+                        </li>
+                        <li class="d-flex justify-content-between py-2">
+                            <span class="text-muted">Active Listings</span>
+                            <strong class="text-dark">{{ posted_jobs|length }} Posted Vacancy</strong>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Right Side-Panel: Job Listings & Screening Dashboard (col-lg-8) -->
+            <div class="col-lg-8">
+                
+                <!-- Section A: Candidate Applications Evaluation Board -->
+                <div class="card border-0 p-4 shadow-sm bg-white rounded-3 mb-4">
+                    <h4 class="poppins-bold text-dark fs-5 border-bottom pb-3 mb-4">
+                        <i class="fa-solid fa-user-check text-primary me-2"></i> Candidate Applications
+                    </h4>
+                    
+                    <div class="d-flex flex-column gap-3">
+                        {% for app in applications %}
+                            <div class="p-3 border rounded bg-light">
+                                <div class="row align-items-center g-3">
+                                    <div class="col-md-7">
+                                        <h5 class="poppins-bold text-dark fs-16 mb-1">{{ app.candidate.user.get_full_name|default:app.candidate.user.email }}</h5>
+                                        <p class="text-muted fs-13 mb-1">Applying for: <strong>{{ app.job.title }}</strong></p>
+                                        <div class="d-flex gap-3 fs-12 text-muted flex-wrap poppins-medium">
+                                            <span><i class="fa-solid fa-briefcase"></i> Experience: {{ app.candidate.experience_years }} Yrs</span>
+                                            <span><i class="fa-solid fa-location-arrow"></i> {{ app.candidate.current_location|default:"Not specified" }}</span>
+                                            <span><i class="fa-solid fa-calendar"></i> Applied {{ app.applied_at|date:"M d, Y" }}</span>
+                                        </div>
+                                        
+                                        <!-- Cover Letter modal link or expander -->
+                                        {% if app.cover_letter %}
+                                            <div class="mt-2 p-2 bg-white rounded border fs-12 text-muted poppins-regular">
+                                                <strong>Cover Letter:</strong> {{ app.cover_letter }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    
+                                    <div class="col-md-5 text-md-end d-flex flex-column gap-2">
+                                        <!-- Actions Panel -->
+                                        <div class="d-flex gap-2 justify-content-md-end">
+                                            <!-- Download snapped CV directly -->
+                                            <a href="{{ app.resume.url }}" target="_blank" class="btn btn-sm btn-primary-custom py-2 px-3 fs-12 poppins-semibold">
+                                                <i class="fa-solid fa-download"></i> View snapshot CV
+                                            </a>
+                                            
+                                            <!-- Schedule interface (only if shortlisted or active) -->
+                                            {% if app.status == 'Shortlisted' or app.status == 'Interview Scheduled' %}
+                                                <a href="{% url 'jobs:schedule_interview' app.id %}" class="btn btn-sm btn-success py-2 px-3 fs-12 poppins-semibold text-white">
+                                                    <i class="fa-solid fa-calendar-plus"></i> Schedule Panel
+                                                </a>
+                                            {% endif %}
+                                        </div>
+                                        
+                                        <!-- Form to update application workflows status -->
+                                        <form action="{% url 'jobs:update_application_status' app.id %}" method="post" class="d-flex gap-2 align-items-center justify-content-md-end mt-1">
+                                            {% csrf_token %}
+                                            <select name="status" class="form-select form-select-sm bg-white border text-dark fs-12 poppins-semibold py-1" style="width: auto;">
+                                                {% for status_val, status_lbl in app.STATUS_CHOICES %}
+                                                    <option value="{{ status_val }}" {% if app.status == status_val %}selected{% endif %}>{{ status_lbl }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <button type="submit" class="btn btn-sm btn-outline-custom border-secondary text-secondary py-1 px-2 fs-12 poppins-bold">Update</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        {% empty %}
+                            <div class="text-center py-5">
+                                <div class="text-muted mb-3"><i class="fa-solid fa-folder-open fs-2"></i></div>
+                                <h6 class="poppins-bold text-dark mb-1">No Applications Filed Yet</h6>
+                                <p class="text-muted fs-13 mb-0">You have no candidate applications currently filed for assessment.</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Section B: My Posted Vacancies Directory -->
+                <div class="card border-0 p-4 shadow-sm bg-white rounded-3">
+                    <h4 class="poppins-bold text-dark fs-5 border-bottom pb-3 mb-4">
+                        <i class="fa-solid fa-briefcase text-primary me-2"></i> Posted Vacancies
+                    </h4>
+                    
+                    <div class="d-flex flex-column gap-3">
+                        {% for job in posted_jobs %}
+                            <div class="p-3 border rounded bg-light transition-all hover-shadow d-flex justify-content-between align-items-center flex-wrap gap-2">
+                                <div>
+                                    <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
+                                        <span class="badge bg-secondary text-white uppercase poppins-bold fs-10">{{ job.job_type }}</span>
+                                        <span class="text-muted fs-11 poppins-medium"><i class="fa-solid fa-location-dot"></i> {{ job.country.name }}</span>
+                                    </div>
+                                    <h5 class="poppins-bold text-dark fs-16 mb-1">{{ job.title }}</h5>
+                                    <p class="text-muted fs-12 mb-0 poppins-semibold">Sector: <strong>{{ job.category.name }}</strong> | Vacancies: <strong>{{ job.vacancies }}</strong> | Exp. Required: <strong>{{ job.experience_required }}</strong></p>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <a href="{% url 'jobs:job_detail' job.slug %}" target="_blank" class="btn btn-sm btn-outline-custom py-1 px-3 fs-11 poppins-bold">View Vacancy</a>
+                                </div>
+                            </div>
+                        {% empty %}
+                            <div class="text-center py-5">
+                                <div class="text-muted mb-3"><i class="fa-solid fa-square-rss fs-2"></i></div>
+                                <h6 class="poppins-bold text-dark mb-1">No Vacancies Published</h6>
+                                <p class="text-muted fs-13 mb-3">Post your first international vacancy listing to capture matching candidate profiles.</p>
+                                <a href="{% url 'jobs:post_job' %}" class="btn btn-primary-custom py-2 px-3 fs-13"><i class="fa-solid fa-square-plus me-1"></i> Post a Vacancy</a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock %}

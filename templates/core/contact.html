@@ -1,0 +1,285 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block seo_title %}Contact Our Sourcing Headquarters | Elevate Workforce{% endblock %}
+{% block seo_desc %}Reach out to Elevate Workforce. Connect directly with our director Mirza Khalique Beg or submit a compliant support request to our Delhi headquarters.{% endblock %}
+
+{% block content %}
+<!-- ==========================================
+     1. HERO BANNER
+     ========================================== -->
+<section class="bg-gradient-premium text-white py-5 position-relative overflow-hidden">
+    <div class="container position-relative z-1 py-3 text-center">
+        <nav aria-label="breadcrumb" class="d-inline-block">
+            <ol class="breadcrumb justify-content-center bg-white bg-opacity-10 py-2 px-3 rounded-pill mb-3">
+                <li class="breadcrumb-item"><a href="{% url 'core:index' %}" class="text-white text-decoration-none fs-13 poppins-medium">Home</a></li>
+                <li class="breadcrumb-item active text-white text-opacity-50 fs-13 poppins-medium" aria-current="page">Contact</li>
+            </ol>
+        </nav>
+        <h1 class="display-4 poppins-bold mb-2">Get In Touch</h1>
+        <p class="lead text-light-muted max-w-600 mx-auto fs-16 poppins-regular">
+            Connect directly with our recruitment specialists, submit compliance inquiries, or plan travel mobilization steps.
+        </p>
+    </div>
+</section>
+
+<!-- ==========================================
+     2. CONTACT SUBMISSION & DIRECT HOTLINE SECTION
+     ========================================== -->
+<section class="section-padding bg-light">
+    <div class="container">
+        <div class="row g-4 align-items-stretch">
+            
+            <!-- Left Column: Direct Support & Hotline Panel -->
+            <div class="col-lg-5" data-aos="fade-right">
+                <div class="card border-0 p-4 p-md-5 shadow-sm rounded-4 bg-white h-100 d-flex flex-column justify-content-between">
+                    <div>
+                        <span class="badge bg-primary bg-opacity-10 text-primary uppercase poppins-bold px-3 py-2 mb-3 fs-13">Direct Assistance</span>
+                        <h2 class="poppins-bold display-6 text-dark mb-3">How Can We Help You?</h2>
+                        <p class="text-muted fs-15 poppins-regular mb-4">
+                            Whether you are a corporate client planning workforce deployment or a skilled candidate searching for global job vacancies, our headquarters team is here to guide you.
+                        </p>
+
+                        <!-- Sourcing Hotline Box with Phone & Email -->
+                        <div class="bg-light p-4 rounded-3 border mb-4">
+                            <div class="d-flex align-items-center gap-3 mb-3">
+                                <div class="bg-primary text-white p-3 rounded-circle d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+                                    <i class="fa-solid fa-headset fs-4"></i>
+                                </div>
+                                <div>
+                                    <h5 class="poppins-bold text-dark fs-16 mb-0">Sourcing Hotline & Support</h5>
+                                    <span class="text-muted fs-13">Mon - Sat: 9:30 AM – 6:30 PM (IST)</span>
+                                </div>
+                            </div>
+
+                            <p class="mb-2 fs-15 poppins-medium text-dark">
+                                <i class="fa-solid fa-phone text-secondary me-2"></i>
+                                <a href="tel:+919897920091" class="text-dark text-decoration-none hover-text-primary poppins-bold">+91 98979 20091</a>
+                            </p>
+                            <p class="mb-0 fs-15 poppins-medium text-dark">
+                                <i class="fa-solid fa-envelope text-secondary me-2"></i>
+                                <a href="mailto:elevateworkforce21@gmail.com" class="text-dark text-decoration-none hover-text-primary poppins-bold">elevateworkforce21@gmail.com</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="border-top pt-3 text-muted fs-13">
+                        <i class="fa-solid fa-circle-check text-success me-1"></i> Full compliance with Ministry of External Affairs (MEA), Government of India.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Contact Submission Form -->
+            <div class="col-lg-7" data-aos="fade-left">
+                <div class="card border-0 p-4 p-md-5 shadow-sm rounded-4 bg-white h-100">
+                    <h3 class="poppins-bold text-dark fs-4 border-bottom pb-3 mb-4">
+                        <i class="fa-regular fa-paper-plane text-primary me-2"></i> Submit Sourcing Message
+                    </h3>
+
+                    <form action="." method="post" enctype="multipart/form-data" class="needs-validation poppins-medium" novalidate>
+                        {% csrf_token %}
+
+                        {% if form.errors %}
+                            <div class="alert alert-danger shadow-sm border-0 py-3 px-4 rounded-3 mb-4 fs-13 poppins-medium" role="alert">
+                                <h6 class="poppins-bold text-danger mb-2"><i class="fa-solid fa-triangle-exclamation"></i> Form Validation Failed:</h6>
+                                Please correct the fields highlighted below and re-submit your message.
+                            </div>
+                        {% endif %}
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label text-dark fs-14 poppins-semibold">Name <span class="text-danger">*</span></label>
+                                {{ form.name }}
+                                {% if form.name.errors %}
+                                    <div class="text-danger fs-12 mt-1 poppins-medium">{{ form.name.errors.as_text }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label text-dark fs-14 poppins-semibold">Email <span class="text-danger">*</span></label>
+                                {{ form.email }}
+                                {% if form.email.errors %}
+                                    <div class="text-danger fs-12 mt-1 poppins-medium">{{ form.email.errors.as_text }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label text-dark fs-14 poppins-semibold">Phone <span class="text-danger">*</span></label>
+                                {{ form.phone }}
+                                {% if form.phone.errors %}
+                                    <div class="text-danger fs-12 mt-1 poppins-medium">{{ form.phone.errors.as_text }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label text-dark fs-14 poppins-semibold">Attach Resume / CV (Optional)</label>
+                                {{ form.resume }}
+                                {% if form.resume.errors %}
+                                    <div class="text-danger fs-12 mt-1 poppins-medium">{{ form.resume.errors.as_text }}</div>
+                                {% endif %}
+                                <div class="form-text text-muted fs-11">PDF or DOCX files up to 5MB.</div>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label text-dark fs-14 poppins-semibold">Subject <span class="text-danger">*</span></label>
+                                {{ form.subject }}
+                                {% if form.subject.errors %}
+                                    <div class="text-danger fs-12 mt-1 poppins-medium">{{ form.subject.errors.as_text }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label text-dark fs-14 poppins-semibold">Message <span class="text-danger">*</span></label>
+                                {{ form.message }}
+                                {% if form.message.errors %}
+                                    <div class="text-danger fs-12 mt-1 poppins-medium">{{ form.message.errors.as_text }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="d-grid mt-4 pt-2">
+                            <button type="submit" class="btn btn-primary-custom w-100 py-3 poppins-bold uppercase tracking-wider">
+                                <i class="fa-solid fa-paper-plane me-2"></i> Send Sourcing Inquiry
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================
+     3. GLOBAL BUSINESS PRESENCE SECTION
+     (4 OFFICE CARDS WITH GOOGLE MAP LOCATIONS)
+     ========================================== -->
+<section class="section-padding bg-white border-top">
+    <div class="container-fluid px-md-5">
+        
+        <div class="text-center mb-5" data-aos="fade-up">
+            <span class="badge bg-primary bg-opacity-10 text-primary uppercase poppins-bold px-3 py-2 mb-2 fs-13">Our Global Network</span>
+            <h2 class="poppins-bold display-6 text-dark mb-3">Global Business Presence</h2>
+            <p class="text-muted max-w-600 mx-auto fs-16 poppins-regular">
+                Visit our regional offices across India and Saudi Arabia for recruitment coordination and project planning.
+            </p>
+        </div>
+
+        <!-- Responsive 4-Column Business Cards Grid -->
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4" data-aos="fade-up" data-aos-delay="100">
+            
+            <!-- Card 1: Head Quarters -->
+            <div class="col">
+                <div class="global-office-card h-100">
+                    <div>
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="bg-primary bg-opacity-10 text-primary p-3 rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                <i class="fa-solid fa-building-circle-check fs-4"></i>
+                            </div>
+                            <div>
+                                <h3 class="office-title mb-0">Head Quarters</h3>
+                                <div class="office-person">New Delhi, India</div>
+                            </div>
+                        </div>
+
+                        <p class="office-address">
+                            Office No. T-2, 27-B, 3rd Floor,<br>
+                            Khizrabad, Near Lions Hospital,<br>
+                            New Delhi – 110025, India
+                        </p>
+                    </div>
+
+                    <div class="border-top pt-3 mt-auto">
+                        <a href="https://www.google.com/maps/search/?api=1&query=Office+No.+T-2+27-B+3rd+Floor+Khizrabad+Near+Lions+Hospital+New+Delhi+110025" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary btn-sm w-100 rounded-pill poppins-medium py-2 d-flex align-items-center justify-content-center gap-2">
+                            <i class="fa-solid fa-map-location-dot text-danger"></i> View Map Location
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Jeddah Office -->
+            <div class="col">
+                <div class="global-office-card h-100">
+                    <div>
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="bg-primary bg-opacity-10 text-primary p-3 rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                <i class="fa-solid fa-location-dot fs-4"></i>
+                            </div>
+                            <div>
+                                <h3 class="office-title mb-0">Jeddah Office</h3>
+                                <div class="office-person">Jeddah, KSA</div>
+                            </div>
+                        </div>
+
+                        <p class="office-address">
+                            4 Batterjee Road,<br>
+                            Al-Zahra District,<br>
+                            Jeddah, Kingdom of Saudi Arabia
+                        </p>
+                    </div>
+
+                    <div class="border-top pt-3 mt-auto">
+                        <a href="https://www.google.com/maps/search/?api=1&query=4+Batterjee+Road+Al-Zahra+District+Jeddah+Saudi+Arabia" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary btn-sm w-100 rounded-pill poppins-medium py-2 d-flex align-items-center justify-content-center gap-2">
+                            <i class="fa-solid fa-map-location-dot text-danger"></i> View Map Location
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Dammam Office -->
+            <div class="col">
+                <div class="global-office-card h-100">
+                    <div>
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="bg-secondary bg-opacity-10 text-secondary p-3 rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                <i class="fa-solid fa-map-location-dot fs-4"></i>
+                            </div>
+                            <div>
+                                <h3 class="office-title mb-0">Dammam Office</h3>
+                                <div class="office-person">Dammam, KSA</div>
+                            </div>
+                        </div>
+
+                        <p class="office-address">
+                            Building No. 4393,<br>
+                            Prince Muhammad Ibn Abdulaziz St.,<br>
+                            As Suq Dist., 32242, Dammam, KSA
+                        </p>
+                    </div>
+
+                    <div class="border-top pt-3 mt-auto">
+                        <a href="https://www.google.com/maps/search/?api=1&query=Building+No.+4393+Prince+Muhammad+Ibn+Abdulaziz+Street+As+Suq+District+Dammam+32242" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary btn-sm w-100 rounded-pill poppins-medium py-2 d-flex align-items-center justify-content-center gap-2">
+                            <i class="fa-solid fa-map-location-dot text-danger"></i> View Map Location
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4: Lucknow Branch Office -->
+            <div class="col">
+                <div class="global-office-card h-100">
+                    <div>
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="bg-success bg-opacity-10 text-success p-3 rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                <i class="fa-solid fa-map-marked-alt fs-4"></i>
+                            </div>
+                            <div>
+                                <h3 class="office-title mb-0">Lucknow Office</h3>
+                                <div class="office-person">Uttar Pradesh, India</div>
+                            </div>
+                        </div>
+
+                        <p class="office-address">
+                            Shop No. 7, 2nd Floor,<br>
+                            Lucknow Plaza Bldg., Nazirabad Rd.,<br>
+                            Aminabad, Lucknow – 226018, UP, India
+                        </p>
+                    </div>
+
+                    <div class="border-top pt-3 mt-auto">
+                        <a href="https://www.google.com/maps/search/?api=1&query=Shop+No.+7+2nd+Floor+Lucknow+Plaza+Building+Nazirabad+Road+Aminabad+Lucknow+226018" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary btn-sm w-100 rounded-pill poppins-medium py-2 d-flex align-items-center justify-content-center gap-2">
+                            <i class="fa-solid fa-map-location-dot text-danger"></i> View Map Location
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block seo_title %}Media & Success Gallery | {{ seo_settings.site_name|default:"Elevate Workforce" }}{% endblock %}
+{% block seo_desc %}Explore visual highlights of successful international recruitment drives, physical pre-departure orientations, and candidates placed in leading global roles.{% endblock %}
+
+{% block content %}
+<!-- ==========================================
+     1. HERO HERO BANNER
+     ========================================== -->
+<section class="bg-gradient-premium text-white py-5 position-relative overflow-hidden">
+    <div class="container position-relative z-1 py-3 text-center">
+        <nav aria-label="breadcrumb" class="d-inline-block">
+            <ol class="breadcrumb justify-content-center bg-white bg-opacity-10 py-2 px-3 rounded-pill mb-3">
+                <li class="breadcrumb-item"><a href="{% url 'core:index' %}" class="text-white text-decoration-none fs-13 poppins-medium">Home</a></li>
+                <li class="breadcrumb-item active text-white text-opacity-50 fs-13 poppins-medium" aria-current="page">Gallery</li>
+            </ol>
+        </nav>
+        <h1 class="display-4 poppins-bold mb-2">Our Visual Legacy</h1>
+        <p class="lead text-light-muted max-w-600 mx-auto fs-16 poppins-regular">
+            A visual directory of successful recruitment drives, orientation programs, and candidate placement mobilization events.
+        </p>
+    </div>
+</section>
+
+<!-- ==========================================
+     2. DYNAMIC GALLERY BLOCK
+     ========================================== -->
+<section class="section-padding bg-light">
+    <div class="container">
+        
+        <!-- Category Filter Tabs -->
+        <div class="d-flex justify-content-center flex-wrap gap-2 mb-5" data-aos="fade-up">
+            <a href="{% url 'core:gallery' %}" class="btn {% if not selected_category %}btn-primary-custom{% else %}btn-outline-custom{% endif %} px-4 py-2 fs-14 poppins-semibold">
+                All Highlights
+            </a>
+            {% for cat_val, cat_lbl in categories.items %}
+                <a href="{% url 'core:gallery' %}?category={{ cat_val }}" class="btn {% if selected_category == cat_val %}btn-primary-custom{% else %}btn-outline-custom{% endif %} px-4 py-2 fs-14 poppins-semibold">
+                    {{ cat_lbl }}
+                </a>
+            {% endfor %}
+        </div>
+
+        <!-- Media Grid Area -->
+        <div class="row g-4" data-aos="fade-up" data-aos-delay="200">
+            {% for item in gallery %}
+                <div class="col-md-6 col-lg-4">
+                    <!-- Interactive Photo Card -->
+                    <div class="card rounded-card border-0 shadow-sm bg-white overflow-hidden h-100 d-flex flex-column position-relative gallery-card-hover" style="cursor: pointer;" role="button" aria-label="Open {{ item.title }} in lightbox" data-image-url="{{ item.image.url|escapejs }}" data-title="{{ item.title|escapejs }}" data-caption="{{ item.caption|default:''|escapejs }}" onclick="openLightbox(this.dataset.imageUrl, this.dataset.title, this.dataset.caption)">
+                        
+                        <!-- Image aspect ratio wrapper with overlay zoom elements -->
+                        <div class="position-relative overflow-hidden" style="height: 260px;">
+                            {% if item.image %}
+                                <img src="{{ item.image.url }}" class="w-100 h-100 object-fit-cover" alt="{{ item.title }}">
+                            {% else %}
+                                <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-secondary bg-opacity-10 text-muted">
+                                    <span class="fs-6">Image not available</span>
+                                </div>
+                            {% endif %}
+                            
+                            <!-- Premium Hover Glassmorphic Overlay -->
+                            <div class="gallery-overlay d-flex align-items-center justify-content-center position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-40 opacity-0 transition-all">
+                                <span class="btn btn-light btn-sm rounded-circle d-flex align-items-center justify-content-center shadow-lg" style="width: 50px; height: 50px;">
+                                    <i class="fa-solid fa-magnifying-glass-plus text-primary fs-5"></i>
+                                </span>
+                            </div>
+
+                            <!-- Category Badge -->
+                            <span class="badge bg-primary position-absolute top-3 start-3 px-3 py-2 poppins-semibold fs-11 uppercase shadow-sm z-1">
+                                {{ item.get_category_display }}
+                            </span>
+                        </div>
+
+                        <!-- Card Caption Details -->
+                        <div class="p-4 bg-white border-top">
+                            <h4 class="poppins-bold text-dark fs-5 mb-2">{{ item.title }}</h4>
+                            <p class="text-muted fs-14 mb-0 poppins-regular line-clamp-2">
+                                {{ item.caption|default:"Successful operational milestone captured at our sourcing facilities." }}
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12 text-center py-5">
+                    <div class="text-muted mb-3 fs-1"><i class="fa-solid fa-images"></i></div>
+                    <h3 class="poppins-bold fs-5 text-dark">No Media Items Found</h3>
+                    <p class="text-muted max-w-400 mx-auto fs-14">There are currently no images published in this category of the gallery. Please check back later for updates.</p>
+                    <a href="{% url 'core:gallery' %}" class="btn btn-primary-custom px-4 py-2 mt-2">View All Media Highlights</a>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</section>
+
+<!-- ==========================================
+     3. NATIVE LIGHTBOX MODAL OVERLAY
+     ========================================== -->
+<div class="modal fade" id="lightboxModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content bg-dark border-0 rounded-4 overflow-hidden shadow-lg">
+            <div class="modal-header border-0 pb-0" style="z-index: 10;">
+                <button type="button" class="btn-close btn-close-white ms-auto shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-0 position-relative">
+                <!-- Large Image Preview Area -->
+                <div class="text-center bg-black" style="min-height: 250px;">
+                    <img id="lightboxImage" src="" class="img-fluid object-fit-contain w-100" style="max-height: 75vh;" alt="Lightbox Preview">
+                </div>
+                <!-- Glassmorphic Meta details footer inside modal -->
+                <div class="p-4 text-white bg-dark bg-opacity-75 position-absolute bottom-0 start-0 w-100" style="backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);">
+                    <h4 id="lightboxTitle" class="poppins-bold text-warning mb-1 fs-5"></h4>
+                    <p id="lightboxCaption" class="mb-0 fs-14 text-light-muted poppins-regular"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Simple Lightbox Event Binding Handler -->
+<script>
+    function openLightbox(imageUrl, title, caption) {
+        document.getElementById('lightboxImage').src = imageUrl;
+        document.getElementById('lightboxTitle').textContent = title;
+        document.getElementById('lightboxCaption').textContent = caption || "Operational milestone.";
+        
+        // Initialize and fire Bootstrap modal
+        const lightboxModal = new bootstrap.Modal(document.getElementById('lightboxModal'));
+        lightboxModal.show();
+    }
+</script>
+
+<!-- Embedded Gallery Hover Custom Animations styling -->
+<style>
+    .gallery-card-hover .gallery-overlay,
+    .gallery-card-hover img {
+        transition: transform 0.35s ease, opacity 0.35s ease;
+    }
+
+    .gallery-card-hover:hover .gallery-overlay {
+        opacity: 1 !important;
+    }
+    .gallery-card-hover:hover img {
+        transform: scale(1.05);
+    }
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+</style>
+{% endblock %}

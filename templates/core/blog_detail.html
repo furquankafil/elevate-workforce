@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block seo_title %}{{ post.title }} | Insights | {{ seo_settings.site_name|default:"Elevate Workforce" }}{% endblock %}
+{% block seo_desc %}{{ post.meta_description|default:post.content|striptags|truncatewords:25 }}{% endblock %}
+
+{% block extra_head %}
+<!-- Structured JSON-LD Article Schema Markup for Search Engines -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "{{ post.title|escapejs }}",
+  "image": [
+    "{% if post.thumbnail and post.thumbnail.name %}{{ request.scheme }}://{{ request.get_host }}{{ post.thumbnail.url }}{% else %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/og-banner.jpg' %}{% endif %}"
+  ],
+  "datePublished": "{{ post.created_at|date:'c' }}",
+  "dateModified": "{{ post.updated_at|date:'c' }}",
+  "author": [{
+      "@type": "Person",
+      "name": "{{ post.author.get_full_name|default:'Elevate Staff'|escapejs }}",
+      "url": "{{ request.scheme }}://{{ request.get_host }}/"
+    }]
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<!-- ==========================================
+     1. ARTICLE HEADER
+     ========================================== -->
+<section class="bg-gradient-premium text-white py-5 position-relative overflow-hidden">
+    <div class="container position-relative z-1 py-4 text-center">
+        <!-- Breadcrumbs -->
+        <nav aria-label="breadcrumb" class="d-inline-block">
+            <ol class="breadcrumb justify-content-center bg-white bg-opacity-10 py-2 px-3 rounded-pill mb-3">
+                <li class="breadcrumb-item"><a href="{% url 'core:index' %}" class="text-white text-decoration-none fs-12 poppins-medium">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'core:blog_list' %}" class="text-white text-decoration-none fs-12 poppins-medium">Insights</a></li>
+                <li class="breadcrumb-item active text-white text-opacity-50 fs-12 poppins-medium" aria-current="page">{{ post.title|truncatechars:30 }}</li>
+            </ol>
+        </nav>
+        
+        <div class="d-flex align-items-center justify-content-center gap-2 mb-3 text-white text-opacity-75 fs-13 poppins-medium">
+            <span><i class="fa-solid fa-calendar-day text-secondary"></i> Published {{ post.created_at|date:"M d, Y" }}</span>
+            <span>•</span>
+            <span><i class="fa-solid fa-user-circle text-secondary"></i> By {{ post.author.get_full_name|default:"Elevate Staff" }}</span>
+        </div>
+        
+        <h1 class="display-5 poppins-bold text-white max-w-800 mx-auto lh-1-2">{{ post.title }}</h1>
+    </div>
+</section>
+
+<!-- ==========================================
+     2. ARTICLE MAIN LAYOUT
+     ========================================== -->
+<section class="section-padding bg-light">
+    <div class="container">
+        <div class="row g-4">
+            
+            <!-- Left Side Column: Blog Article Body Content (col-lg-8) -->
+            <div class="col-lg-8">
+                <div class="card border-0 p-4 p-md-5 shadow-sm rounded-3 bg-white mb-4">
+                    
+                    <!-- Article Lead Thumbnail with safety check -->
+                    {% if post.thumbnail and post.thumbnail.name %}
+                        <div class="rounded-3 overflow-hidden mb-4 shadow-sm" style="max-height: 400px;">
+                            <img src="{{ post.thumbnail.url }}" class="w-100 h-100 object-fit-cover" alt="{{ post.title }} Banner Image">
+                        </div>
+                    {% else %}
+                        <!-- Elegant Fallback Banner if no thumbnail is attached -->
+                        <div class="rounded-3 overflow-hidden mb-4 bg-gradient-premium p-5 text-center text-white position-relative" style="min-height: 250px; display: flex; align-items: center; justify-content: center;">
+                            <div class="position-relative z-1">
+                                <i class="fa-solid fa-newspaper fs-1 text-warning mb-3"></i>
+                                <h3 class="poppins-bold fs-4">{{ post.title }}</h3>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <!-- Article Body Content -->
+                    <article class="text-dark poppins-regular fs-15 lh-lg mb-5">
+                        {{ post.content|safe }}
+                    </article>
+                    
+                    <hr class="my-4">
+
+                    <!-- Social Share Modules -->
+                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+                        <span class="poppins-bold fs-14 text-dark mb-0">Share this article:</span>
+                        <div class="d-flex gap-2">
+                            <a href="https://wa.me/?text={{ post.title|urlencode }}%20-%20{{ request.build_absolute_uri|urlencode }}" target="_blank" class="btn btn-sm btn-success px-3 py-2 text-white poppins-semibold fs-12 d-flex align-items-center gap-1">
+                                <i class="fa-brands fa-whatsapp fs-5"></i> WhatsApp
+                            </a>
+                            <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri|urlencode }}" target="_blank" class="btn btn-sm btn-primary px-3 py-2 text-white poppins-semibold fs-12 d-flex align-items-center gap-1">
+                                <i class="fa-brands fa-linkedin-in fs-5"></i> LinkedIn
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Right Side Column: Sidebar CTAs & Related Articles (col-lg-4) -->
+            <div class="col-lg-4">
+                
+                <!-- Related Articles Sidecard -->
+                {% if related_posts %}
+                    <div class="card border-0 p-4 shadow-sm rounded-3 bg-white mb-4">
+                        <h4 class="poppins-bold text-dark fs-5 border-bottom pb-3 mb-3">
+                            <i class="fa-solid fa-rss text-primary me-2"></i> Related Insights
+                        </h4>
+                        
+                        <div class="d-flex flex-column gap-3">
+                            {% for r_post in related_posts %}
+                                <div class="d-flex gap-3 align-items-center">
+                                    <div class="rounded-2 overflow-hidden bg-light" style="width: 70px; height: 70px; flex-shrink: 0;">
+                                        {% if r_post.thumbnail and r_post.thumbnail.name %}
+                                            <img src="{{ r_post.thumbnail.url }}" class="w-100 h-100 object-fit-cover" alt="{{ r_post.title }} Thumbnail">
+                                        {% else %}
+                                            <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-secondary text-white bg-opacity-25">
+                                                <i class="fa-solid fa-newspaper text-muted fs-4"></i>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <div>
+                                        <a href="{% url 'core:blog_detail' r_post.slug %}" class="text-decoration-none text-dark poppins-semibold fs-14 hover-text-primary d-block mb-1" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                                            {{ r_post.title }}
+                                        </a>
+                                        <span class="text-muted fs-11 poppins-medium"><i class="fa-solid fa-calendar-day"></i> {{ r_post.created_at|date:"M d, Y" }}</span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+
+                <!-- Dynamic Workspace Promotion Banner -->
+                <div class="card border-0 p-4 shadow-sm rounded-3 text-white bg-gradient-premium mb-4 text-center">
+                    <h5 class="poppins-bold text-warning fs-18 mb-2">Explore Global Jobs</h5>
+                    <p class="fs-13 text-light-muted poppins-regular mb-4">
+                        Take the next step in your career. Discover verified international vacancies in Europe and the Middle East.
+                    </p>
+                    <a href="{% url 'jobs:job_list' %}" class="btn btn-sm btn-secondary-custom px-4 py-2 fs-13 poppins-bold uppercase">Browse Directory</a>
+                </div>
+
+                <!-- Office Contact Summary Card -->
+                <div class="card border-0 p-4 shadow-sm rounded-3 bg-white text-dark border-start border-primary border-4">
+                    <h5 class="poppins-bold text-primary fs-15 mb-2">Sourcing Inquiry?</h5>
+                    <p class="fs-13 text-muted poppins-regular mb-3">
+                        Our corporate teams provide end-to-end mobilization, visa consultation, and trade screening support.
+                    </p>
+                    <a href="{% url 'core:contact' %}" class="text-primary text-decoration-none fs-12 poppins-bold">
+                        Connect with Head Office <i class="fa-solid fa-angle-right"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock %}

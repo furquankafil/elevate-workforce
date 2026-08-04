@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block seo_title %}Frequently Asked Questions (FAQs) | {{ seo_settings.site_name|default:"Elevate Workforce" }}{% endblock %}
+{% block seo_desc %}Get answers regarding international recruitment, visa endorsement guidelines, trade testing procedures, and compliance standards.{% endblock %}
+
+{% block content %}
+<!-- ==========================================
+     1. HERO HERO BANNER
+     ========================================== -->
+<section class="bg-gradient-premium text-white py-5 position-relative overflow-hidden">
+    <div class="container position-relative z-1 py-3 text-center">
+        <nav aria-label="breadcrumb" class="d-inline-block">
+            <ol class="breadcrumb justify-content-center bg-white bg-opacity-10 py-2 px-3 rounded-pill mb-3">
+                <li class="breadcrumb-item"><a href="{% url 'core:index' %}" class="text-white text-decoration-none fs-13 poppins-medium">Home</a></li>
+                <li class="breadcrumb-item active text-white text-opacity-50 fs-13 poppins-medium" aria-current="page">FAQ</li>
+            </ol>
+        </nav>
+        <h1 class="display-4 poppins-bold mb-2">Frequently Asked Questions</h1>
+        <p class="lead text-light-muted max-w-600 mx-auto fs-16 poppins-regular">
+            Clear guidelines on recruitment timelines, physical requirements, compliance procedures, and work permits.
+        </p>
+    </div>
+</section>
+
+<!-- ==========================================
+     2. ACCORDION COMPONENT GRID
+     ========================================== -->
+<section class="section-padding bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            
+            <div class="col-lg-8" data-aos="fade-up">
+                <!-- Bootstrap 5 Accordion Container -->
+                <div class="accordion accordion-flush" id="faqAccordion">
+                    {% for f in faqs %}
+                        <div class="accordion-item rounded-3 mb-3 border-0 overflow-hidden shadow-sm bg-white">
+                            <h2 class="accordion-header" id="heading_{{ f.id }}">
+                                <button class="accordion-button collapsed poppins-bold text-dark fs-15 py-3 px-4 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_{{ f.id }}" aria-expanded="false" aria-controls="collapse_{{ f.id }}">
+                                    <i class="fa-solid fa-circle-question text-primary me-2 fs-5"></i> {{ f.question }}
+                                </button>
+                            </h2>
+                            <div id="collapse_{{ f.id }}" class="accordion-collapse collapse" aria-labelledby="heading_{{ f.id }}" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted poppins-regular fs-14 bg-light p-4 border-top">
+                                    {{ f.answer|linebreaks }}
+                                </div>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <div class="text-center py-5 bg-white rounded-3 shadow-sm">
+                            <div class="text-muted mb-3 fs-1"><i class="fa-solid fa-clipboard-question"></i></div>
+                            <h4 class="poppins-bold fs-5 text-dark">No Frequently Asked Questions Found</h4>
+                            <p class="text-muted max-w-400 mx-auto fs-14">Our operational FAQ matrix is currently being compiled. Please submit your questions directly using our contact form.</p>
+                            <a href="{% url 'core:contact' %}" class="btn btn-primary-custom px-4 py-2 mt-2">Send Us a Question</a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================
+     3. SUPPORT ASSISTANCE PROMOTION BLOCK
+     ========================================== -->
+<section class="section-padding bg-white border-top">
+    <div class="container text-center max-w-600 mx-auto" data-aos="fade-up">
+        <span class="badge bg-secondary bg-opacity-10 text-secondary uppercase poppins-bold px-3 py-2 mb-2 fs-13">Need Support?</span>
+        <h2 class="poppins-bold display-6 mb-3">Still Have Questions?</h2>
+        <p class="text-muted fs-15 poppins-regular mb-4">
+            If you have specific queries regarding your passport validity, medical clearance status, or work visa requirements, our support team can help you.
+        </p>
+        <a href="{% url 'core:contact' %}" class="btn btn-primary-custom px-4 py-3 poppins-bold">Connect with Our Team</a>
+    </div>
+</section>
+{% endblock %}

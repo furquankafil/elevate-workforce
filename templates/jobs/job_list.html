@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block seo_title %}Search International Job Openings | Elevate Workforce{% endblock %}
+{% block seo_desc %}Explore current job openings across Europe and the Gulf. Filter by keyword, industry category, destination country, or position type.{% endblock %}
+
+{% block content %}
+<!-- ==========================================
+     1. HERO HERO BANNER
+     ========================================== -->
+<section class="bg-gradient-premium text-white py-5 position-relative overflow-hidden">
+    <div class="container position-relative z-1 py-3 text-center">
+        <h1 class="display-5 poppins-bold mb-2">Overseas Opportunities</h1>
+        <p class="lead text-light-muted max-w-600 mx-auto fs-16 poppins-regular">
+            Your international career pathway starts here. Discover active listings vetted by our compliance team.
+        </p>
+    </div>
+</section>
+
+<!-- ==========================================
+     2. JOB BOARD WORKSPACE (FILTERS & GRID)
+     ========================================== -->
+<section class="section-padding bg-light">
+    <div class="container">
+        <div class="row g-4">
+            
+            <!-- Left Filter Panel -->
+            <div class="col-lg-3">
+                <div class="card border-0 p-4 shadow-sm rounded-3 bg-white mb-4">
+                    <h4 class="poppins-bold fs-5 text-dark mb-4 d-flex align-items-center gap-2">
+                        <i class="fa-solid fa-sliders text-primary"></i> Filter Options
+                    </h4>
+                    
+                    <form action="{% url 'jobs:job_list' %}" method="get">
+                        <!-- Keywords -->
+                        <div class="mb-3">
+                            <label class="form-label text-dark poppins-semibold fs-14">Keywords</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-light text-muted"><i class="fa-solid fa-search"></i></span>
+                                <input type="text" name="q" class="form-control bg-light border-light text-dark fs-14" placeholder="Job title, skills..." value="{{ search_query }}">
+                            </div>
+                        </div>
+
+                        <!-- Industry Sector -->
+                        <div class="mb-3">
+                            <label class="form-label text-dark poppins-semibold fs-14">Industry Sector</label>
+                            <select name="category" class="form-select bg-light border-light text-dark fs-14">
+                                <option value="">All Sectors</option>
+                                {% for cat in categories %}
+                                    <option value="{{ cat.slug }}" {% if selected_category == cat.slug %}selected{% endif %}>{{ cat.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Destination Country Filter (FIXED) -->
+                        <div class="mb-3">
+                            <label class="form-label text-dark poppins-semibold fs-14">Destination</label>
+                            <select name="destination" class="form-select bg-light border-light text-dark fs-14">
+                                <option value="">All Destinations</option>
+                                {% for dest in destinations %}
+                                    <option value="{{ dest.slug }}" {% if selected_destination == dest.slug or selected_country == dest.slug %}selected{% endif %}>{{ dest.name }}</option>
+                                {% empty %}
+                                    {% for country in countries %}
+                                        <option value="{{ country.slug }}" {% if selected_destination == country.slug or selected_country == country.slug %}selected{% endif %}>{{ country.name }}</option>
+                                    {% endfor %}
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Contract Type -->
+                        <div class="mb-4">
+                            <label class="form-label text-dark poppins-semibold fs-14">Contract Type</label>
+                            <select name="type" class="form-select bg-light border-light text-dark fs-14">
+                                <option value="">All Types</option>
+                                <option value="Full-time" {% if selected_type == 'Full-time' %}selected{% endif %}>Full-time</option>
+                                <option value="Contract" {% if selected_type == 'Contract' %}selected{% endif %}>Contract</option>
+                                <option value="Temporary" {% if selected_type == 'Temporary' %}selected{% endif %}>Temporary</option>
+                                <option value="Rotational" {% if selected_type == 'Rotational' %}selected{% endif %}>Rotational</option>
+                            </select>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary-custom w-100 py-2 fs-14 poppins-semibold">Apply Filters</button>
+                            <a href="{% url 'jobs:job_list' %}" class="btn btn-outline-custom w-100 py-2 fs-14 poppins-semibold text-center">Reset All</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Right Active Jobs Grid -->
+            <div class="col-lg-9">
+                <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+                    <p class="mb-0 text-muted poppins-medium fs-15">
+                        Showing <strong>{{ jobs.paginator.count }}</strong> Active Vacancies
+                    </p>
+                </div>
+
+                <div class="row g-4">
+                    {% for job in jobs %}
+                        <div class="col-md-6 col-lg-12" data-aos="fade-up">
+                            <div class="card border-0 p-4 shadow-sm bg-white rounded-3 position-relative transition-all hover-translate">
+                                <div class="row align-items-center g-3">
+                                    <div class="col-lg-8">
+                                        <div class="d-flex align-items-center gap-2 mb-2 flex-wrap">
+                                            <span class="badge bg-secondary text-white uppercase poppins-bold fs-11">{{ job.job_type }}</span>
+                                            <span class="text-muted fs-12 poppins-medium"><i class="fa-solid fa-clock me-1"></i> Posted {{ job.created_at|timesince }} ago</span>
+                                        </div>
+                                        <h3 class="poppins-bold text-dark fs-4 mb-2">{{ job.title }}</h3>
+                                        <p class="text-muted fs-14 mb-3 poppins-semibold d-flex align-items-center gap-1">
+                                            <i class="fa-solid fa-building text-secondary"></i> {{ job.employer.company_name }}
+                                        </p>
+                                        <div class="d-flex gap-3 text-muted fs-13 flex-wrap poppins-medium">
+                                            <span><i class="fa-solid fa-earth-americas text-primary me-1"></i> {{ job.destination.name }}</span>
+                                            <span><i class="fa-solid fa-layer-group text-primary me-1"></i> {{ job.category.name }}</span>
+                                            <span><i class="fa-solid fa-wallet text-secondary me-1"></i> {{ job.salary_range|default:"Competitive Salary" }}</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-lg-4 text-lg-end d-flex flex-lg-column gap-2 justify-content-start w-100-md mt-3 mt-lg-0">
+                                        <a href="{% url 'jobs:job_detail' job.slug %}" class="btn btn-primary-custom w-100-md py-2 fs-14 poppins-semibold">View Details</a>
+                                        <form method="POST" action="{% url 'jobs:save_job' job.slug %}" class="d-inline w-100-md">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-outline-custom w-100-md py-2 fs-14 poppins-semibold"><i class="fa-regular fa-bookmark me-1"></i> Bookmark</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <div class="col-12 text-center py-5">
+                            <div class="text-muted mb-3 fs-1"><i class="fa-solid fa-briefcase"></i></div>
+                            <h3 class="poppins-bold fs-5 text-dark">No Vacancies Match Your Filter Selection</h3>
+                            <p class="text-muted max-w-400 mx-auto fs-14">Try refining your keyword queries, removing specific destination filters, or selecting all industry categories.</p>
+                            <a href="{% url 'jobs:job_list' %}" class="btn btn-primary-custom px-4 py-2 mt-2">View All Active Jobs</a>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Pagination -->
+                {% if jobs.has_other_pages %}
+                    <nav aria-label="Page navigation" class="mt-5">
+                        <ul class="pagination justify-content-center mb-0">
+                            {% if jobs.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link shadow-sm border-0 rounded-circle d-flex align-items-center justify-content-center me-2" href="?page={{ jobs.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if selected_destination %}&destination={{ selected_destination }}{% endif %}{% if selected_type %}&type={{ selected_type }}{% endif %}" style="width: 40px; height: 40px; color: var(--primary-color);">
+                                        <i class="fa-solid fa-chevron-left"></i>
+                                    </a>
+                                </li>
+                            {% endif %}
+
+                            {% for num in jobs.paginator.page_range %}
+                                {% if jobs.number == num %}
+                                    <li class="page-item active">
+                                        <span class="page-link border-0 shadow-sm rounded-circle d-flex align-items-center justify-content-center me-2 bg-primary text-white" style="width: 40px; height: 40px;">{{ num }}</span>
+                                    </li>
+                                {% elif num > jobs.number|add:'-3' and num < jobs.number|add:'3' %}
+                                    <li class="page-item">
+                                        <a class="page-link border-0 shadow-sm rounded-circle d-flex align-items-center justify-content-center me-2 text-dark bg-white" href="?page={{ num }}{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if selected_destination %}&destination={{ selected_destination }}{% endif %}{% if selected_type %}&type={{ selected_type }}{% endif %}" style="width: 40px; height: 40px;">{{ num }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if jobs.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link shadow-sm border-0 rounded-circle d-flex align-items-center justify-content-center" href="?page={{ jobs.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if selected_destination %}&destination={{ selected_destination }}{% endif %}{% if selected_type %}&type={{ selected_type }}{% endif %}" style="width: 40px; height: 40px; color: var(--primary-color);">
+                                        <i class="fa-solid fa-chevron-right"></i>
+                                    </a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                {% endif %}
+
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock %}

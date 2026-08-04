@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block seo_title %}Submit Application for {{ job.title }} | Elevate Workforce{% endblock %}
+{% block seo_desc %}Submit your formal credentials and CV snapshot to apply for the open vacancy.{% endblock %}
+
+{% block content %}
+<!-- ==========================================
+     1. ROUTING SECTION HERO
+     ========================================== -->
+<section class="bg-gradient-premium text-white py-5 position-relative overflow-hidden">
+    <div class="container position-relative z-1 py-3 text-center">
+        <h1 class="display-5 poppins-bold mb-2">Job Application Portal</h1>
+        <p class="lead text-light-muted max-w-600 mx-auto fs-16 poppins-regular">
+            Review your professional credentials and submit your snapshot details directly to the hiring employer.
+        </p>
+    </div>
+</section>
+
+<!-- ==========================================
+     2. APPLICATION FORM SECTION
+     ========================================== -->
+<section class="section-padding bg-light">
+    <div class="container">
+        <div class="row g-4 justify-content-center">
+            
+            <!-- Left Side: Formal Action Form (col-lg-7) -->
+            <div class="col-lg-7">
+                <div class="card border-0 p-4 p-md-5 shadow-sm rounded-3 bg-white mb-4">
+                    <h3 class="poppins-bold text-dark fs-4 border-bottom pb-2 mb-4">
+                        <i class="fa-solid fa-file-signature text-primary me-2"></i> Submit Application Details
+                    </h3>
+                    
+                    <form action="{% url 'jobs:apply_job' job.slug %}" method="post">
+                        {% csrf_token %}
+                        
+                        <!-- Profile/CV Attachment Status -->
+                        <div class="mb-4">
+                            <label class="form-label text-dark poppins-semibold fs-14 d-flex align-items-center justify-content-between">
+                                <span>Attached Resume / CV File</span>
+                                <a href="{% url 'users:profile' %}" class="text-secondary text-decoration-none fs-12 poppins-medium">
+                                    <i class="fa-solid fa-pen-to-square"></i> Change or Edit CV
+                                </a>
+                            </label>
+                            
+                            <div class="p-3 border rounded bg-light d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="bg-white p-2 border rounded text-danger">
+                                        <i class="fa-solid fa-file-pdf fs-3"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="poppins-bold fs-14 text-dark mb-0">My_Active_CV.pdf</h6>
+                                        <p class="text-muted fs-12 mb-0">This active file will be snapshotted with your submission.</p>
+                                    </div>
+                                </div>
+                                <span class="badge bg-success-subtle text-success border border-success border-opacity-20 py-2 px-3 poppins-semibold fs-12">
+                                    <i class="fa-solid fa-circle-check"></i> Active File
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Personal Cover Letter / Remarks Text Area -->
+                        <div class="mb-4">
+                            <label class="form-label text-dark poppins-semibold fs-14">Cover Letter / Personal Sourcing Remarks</label>
+                            <textarea name="cover_letter" class="form-control bg-light border-light text-dark fs-14" rows="6" placeholder="Explain your suitability, key skills, physical health, certifications, passport validity, and total relevant years of experience..." required></textarea>
+                            <p class="text-muted fs-12 mt-1">Briefly outline your background for the screening recruiters.</p>
+                        </div>
+
+                        <!-- Legal Transparency Confirmation Check -->
+                        <div class="mb-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="legalVerify" required>
+                                <label class="form-check-label text-muted fs-13 poppins-regular" for="legalVerify">
+                                    I confirm that all credentials, years of experience, and CV files submitted are genuine, and I agree to Elevate Workforce's <a href="{% url 'core:terms' %}" class="text-primary text-decoration-none" target="_blank">Terms of Sourcing</a>.
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Submit Buttons -->
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-secondary-custom w-100 py-3 poppins-bold uppercase tracking-wider">
+                                <i class="fa-solid fa-paper-plane me-2"></i> Submit Application
+                            </button>
+                            <a href="{% url 'jobs:job_detail' job.slug %}" class="btn btn-outline-custom w-100 py-2 fs-14 poppins-semibold text-center">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Right Side: Vacancy Overview Summary Panel (col-lg-4) -->
+            <div class="col-lg-4">
+                <!-- Summary Panel -->
+                <div class="card border-0 p-4 shadow-sm rounded-3 bg-white mb-4">
+                    <h4 class="poppins-bold text-dark fs-5 border-bottom pb-3 mb-3">
+                        <i class="fa-solid fa-circle-info text-primary me-2"></i> Vacancy Overview
+                    </h4>
+                    
+                    <h5 class="poppins-bold text-primary fs-5 mb-1">{{ job.title }}</h5>
+                    <p class="text-muted fs-13 poppins-semibold mb-3"><i class="fa-solid fa-building me-1"></i> {{ job.employer.company_name }}</p>
+                    
+                    <ul class="list-unstyled poppins-regular fs-13 mb-0">
+                        <li class="d-flex justify-content-between py-2 border-bottom">
+                            <span class="text-muted">Target Country</span>
+                            <strong class="text-dark">{{ job.country.name }}</strong>
+                        </li>
+                        <li class="d-flex justify-content-between py-2 border-bottom">
+                            <span class="text-muted">Contract Type</span>
+                            <strong class="text-dark">{{ job.job_type }}</strong>
+                        </li>
+                        <li class="d-flex justify-content-between py-2 border-bottom">
+                            <span class="text-muted">Salary Range</span>
+                            <strong class="text-dark">{{ job.salary_range|default:"Competitive" }}</strong>
+                        </li>
+                        <li class="d-flex justify-content-between py-2">
+                            <span class="text-muted">Exp. Required</span>
+                            <strong class="text-dark">{{ job.experience_required }}</strong>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Sourcing Principles Informational Card -->
+                <div class="card border-0 p-4 shadow-sm rounded-3 bg-white text-dark border-start border-warning border-4">
+                    <h5 class="poppins-bold text-warning fs-16 mb-2">
+                        <i class="fa-solid fa-shield-halved"></i> Ethical Sourcing Guidelines
+                    </h5>
+                    <p class="fs-13 text-muted poppins-regular mb-0">
+                        <strong>Elevate Workforce</strong> works closely with accredited global corporate partners. Our processes conform fully to government regulations. We never request unauthorized fees for applications or registration. Protect your identity credentials.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock %}

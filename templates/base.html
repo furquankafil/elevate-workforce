@@ -1,0 +1,174 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Primary SEO Metadata -->
+    <title>{% block seo_title %}{{ seo_settings.default_meta_title|default:"Elevate Workforce | Premier Overseas Recruitment" }}{% endblock %}</title>
+    <meta name="description" content="{% block seo_desc %}{{ seo_settings.default_meta_description|default:"Elevate Workforce is an elite international recruitment agency connecting skilled workforce and professionals with world-class opportunities in the Gulf and Europe." }}{% endblock %}">
+    
+    <!-- Canonical Endpoint -->
+    <link rel="canonical" href="{% block canonical_url %}{{ request.build_absolute_uri }}{% endblock %}">
+    
+    <!-- Open Graph Protocol -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{% block og_title %}{{ seo_settings.default_meta_title|default:"Elevate Workforce | Premier Overseas Recruitment" }}{% endblock %}">
+    <meta property="og:description" content="{% block og_desc %}{{ seo_settings.default_meta_description|default:"Elite international recruitment solutions." }}{% endblock %}">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:image" content="{% block og_image %}{% static 'images/og-banner.jpg' %}{% endblock %}">
+
+    <!-- Preconnecting External Font Libraries -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{% static 'image/favicon.ico' %}">
+    <link rel="apple-touch-icon" href="{% static 'image/favicon.ico' %}">
+    <meta name="theme-color" content="#0d6efd">
+
+    <!-- Font Awesome Pro icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <!-- Bootstrap 5, AOS & Swiper CSS libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Project Custom CSS stylesheet (With Cache-Busting Version Query) -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=1.3">
+
+    <!-- Theme Initialization Script -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-bs-theme', savedTheme);
+        })();
+    </script>
+
+    <!-- Google translate banner hider styles (गूगल के ऊपरी नीले बार को छुपाने के लिए) -->
+    <style>
+        body {
+            top: 0px !important;
+        }
+        .skiptranslate {
+            display: none !important;
+        }
+        .goog-te-banner-frame {
+            display: none !important;
+        }
+        .goog-te-balloon-frame {
+            display: none !important;
+        }
+    </style>
+
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+    <!-- Screen Loader -->
+    <div id="loading-screen" class="loading-screen-container">
+        <div class="loader-spinner">
+            <div class="spinner-inner"></div>
+            <p class="loader-text poppins-semibold tracking-wider text-uppercase mt-3 text-white">Elevate Workforce</p>
+        </div>
+    </div>
+
+    <!-- Main Navigation Bar Header -->
+    {% include 'components/navbar.html' %}
+
+    <!-- Dynamic Page Body -->
+    <main id="smooth-wrapper">
+        <div id="smooth-content">
+            {% if messages %}
+                <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 9999;">
+                    {% for message in messages %}
+                        <div class="toast show align-items-center text-white bg-{% if message.tags == 'error' %}danger{% elif message.tags == 'warning' %}warning{% else %}primary{% endif %} border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="d-flex">
+                                <div class="toast-body poppins-medium">
+                                    {{ message }}
+                                </div>
+                                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% block content %}{% endblock %}
+
+            {% include 'components/footer.html' %}
+        </div>
+    </main>
+
+    <!-- Floating Action Components -->
+    {% include 'components/whatsapp_button.html' %}
+    {% include 'components/ai_agent.html' %}
+    
+    <button id="back-to-top" class="back-to-top-btn" aria-label="Return to top of page">
+        <i class="fa-solid fa-chevron-up"></i>
+    </button>
+
+    <!-- Core Scripting Engine files -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/ai-agent.js' %}"></script>
+    
+    <!-- Real-time Multilingual Translation Cookie Triggers -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // कुकी वैल्यू को पढ़ने के लिए हेल्पर फ़ंक्शन
+            function getCookie(name) {
+                const value = `; ${document.cookie}`;
+                const parts = value.split(`; ${name}=`);
+                if (parts.length === 2) return parts.pop().split(';').shift();
+            }
+
+            // वर्तमान कुकी के आधार पर हेडर में सक्रिय भाषा का नाम अपडेट करें
+            const transCookie = getCookie('googtrans');
+            const activeLangSpan = document.getElementById('active-lang');
+            
+            if (transCookie && activeLangSpan) {
+                const langCode = transCookie.split('/').pop().toLowerCase();
+                if (langCode === 'hi') {
+                    activeLangSpan.innerText = 'हिन्दी';
+                } else if (langCode === 'ar') {
+                    activeLangSpan.innerText = 'العربية';
+                } else if (langCode === 'ru') {
+                    activeLangSpan.innerText = 'Русский';
+                } else {
+                    activeLangSpan.innerText = 'English';
+                }
+            }
+
+            // भाषा बदलने पर कुकी को सेट करने की स्क्रिप्ट
+            document.querySelectorAll('.lang-select').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const lang = this.getAttribute('data-lang');
+                    
+                    // कुकी फ़ॉर्मेट: /en/hi, /en/ar, /en/ru
+                    const cookieValue = "/en/" + lang;
+                    
+                    // सभी डोमेन पाथ के लिए कुकी सेट करें ताकि अनुवाद हर पेज पर बना रहे
+                    document.cookie = "googtrans=" + cookieValue + "; path=/; SameSite=Lax";
+                    document.cookie = "googtrans=" + cookieValue + "; domain=" + window.location.hostname + "; path=/; SameSite=Lax";
+                    
+                    // बदलाव लागू करने के लिए पेज को रीलोड करें
+                    window.location.reload();
+                });
+            });
+        });
+    </script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

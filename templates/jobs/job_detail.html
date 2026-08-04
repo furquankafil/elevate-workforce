@@ -1,0 +1,207 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block seo_title %}{{ job.title }} in {{ job.country.name }} | {{ seo_settings.site_name|default:"Elevate Workforce" }}{% endblock %}
+{% block seo_desc %}{{ job.meta_description|default:job.description|striptags|truncatewords:25 }}{% endblock %}
+
+{% block content %}
+<!-- ==========================================
+     1. JOB DETAIL HERO HEADER
+     ========================================== -->
+<section class="bg-gradient-premium text-white py-5 position-relative overflow-hidden">
+    <div class="container position-relative z-1 py-4">
+        <div class="row align-items-center g-4">
+            <div class="col-lg-8">
+                <!-- Breadcrumbs -->
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-white bg-opacity-10 py-2 px-3 rounded-pill mb-3 d-inline-flex">
+                        <li class="breadcrumb-item"><a href="{% url 'core:index' %}" class="text-white text-decoration-none fs-12 poppins-medium">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'jobs:job_list' %}" class="text-white text-decoration-none fs-12 poppins-medium">Jobs</a></li>
+                        <li class="breadcrumb-item active text-white text-opacity-50 fs-12 poppins-medium" aria-current="page">{{ job.title|truncatechars:30 }}</li>
+                    </ol>
+                </nav>
+                
+                <div class="d-flex align-items-center gap-2 mb-2 flex-wrap">
+                    <span class="badge bg-secondary text-white uppercase poppins-bold fs-12">{{ job.job_type }}</span>
+                    <span class="text-light-muted fs-13 poppins-medium"><i class="fa-solid fa-clock me-1"></i> Posted {{ job.created_at|date:"M d, Y" }}</span>
+                </div>
+                
+                <h1 class="display-5 poppins-bold text-white mb-2 lh-1-2">{{ job.title }}</h1>
+                <p class="lead text-light-muted mb-0 poppins-semibold d-flex align-items-center gap-2">
+                    <i class="fa-solid fa-building text-secondary fs-5"></i> {{ job.employer.company_name }}
+                    {% if job.employer.is_verified_employer %}
+                        <span class="badge bg-success bg-opacity-25 text-white poppins-bold fs-11 border border-success border-opacity-20"><i class="fa-solid fa-circle-check"></i> Verified Employer</span>
+                    {% endif %}
+                </p>
+            </div>
+            
+            <div class="col-lg-4 text-lg-end">
+                <div class="d-flex gap-2 justify-content-lg-end flex-wrap">
+                    <!-- Dynamic Action Handling based on Profile Roles -->
+                    {% if request.user.is_authenticated %}
+                        {% if request.user.is_candidate %}
+                            {% if has_applied %}
+                                <button class="btn btn-secondary-custom px-4 py-3 poppins-semibold disabled" disabled>
+                                    <i class="fa-solid fa-circle-check me-2"></i> Application Submitted
+                                </button>
+                            {% else %}
+                                <a href="{% url 'jobs:apply_job' job.slug %}" class="btn btn-secondary-custom px-4 py-3 poppins-semibold">
+                                    <i class="fa-solid fa-paper-plane me-2"></i> Apply For Vacancy
+                                </a>
+                            {% endif %}
+                            
+                            <form method="POST" action="{% url 'jobs:save_job' job.slug %}" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-custom border-white text-white px-4 py-3 poppins-semibold">
+                                    <i class="{% if has_saved %}fa-solid{% else %}fa-regular{% endif %} fa-bookmark me-2"></i> 
+                                    {% if has_saved %}Saved{% else %}Save Job{% endif %}
+                                </button>
+                            </form>
+                        {% else %}
+                            <!-- Informational state for logged-in employers -->
+                            <div class="badge bg-white bg-opacity-10 text-white p-3 rounded-3 poppins-medium text-start">
+                                <i class="fa-solid fa-circle-info text-warning me-2"></i> Logged in as Employer. Sourcing permissions apply.
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        <a href="{% url 'users:login' %}?next={{ request.path }}" class="btn btn-secondary-custom px-4 py-3 poppins-semibold">
+                            <i class="fa-solid fa-right-to-bracket me-2"></i> Login to Apply
+                        </a>
+                        <a href="{% url 'users:register_candidate' %}" class="btn btn-outline-custom border-white text-white px-4 py-3 poppins-semibold">
+                            Register
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================
+     2. GRANULAR DESCRIPTION & SPECIFICATION GRID
+     ========================================== -->
+<section class="section-padding bg-light">
+    <div class="container">
+        <div class="row g-4">
+            
+            <!-- Left Column: Core Job Details (col-lg-8) -->
+            <div class="col-lg-8">
+                <div class="card border-0 p-4 p-md-5 shadow-sm rounded-3 bg-white mb-4">
+                    <!-- Section A: Job Description -->
+                    <h3 class="poppins-bold text-primary fs-4 border-bottom pb-2 mb-3">
+                        <i class="fa-solid fa-file-invoice text-secondary me-2"></i> Job Description & Duties
+                    </h3>
+                    <div class="text-muted poppins-regular fs-15 lh-lg mb-4">
+                        {{ job.description|linebreaks }}
+                    </div>
+                    
+                    <!-- Section B: Key Technical Requirements -->
+                    <h3 class="poppins-bold text-primary fs-4 border-bottom pb-2 mb-3 mt-5">
+                        <i class="fa-solid fa-circle-exclamation text-secondary me-2"></i> Candidate Requirements
+                    </h3>
+                    <div class="text-muted poppins-regular fs-15 lh-lg mb-4">
+                        {{ job.requirements|linebreaks }}
+                    </div>
+
+                    <!-- Section C: Key Benefits & Provisions -->
+                    {% if job.benefits %}
+                        <h3 class="poppins-bold text-primary fs-4 border-bottom pb-2 mb-3 mt-5">
+                            <i class="fa-solid fa-gift text-secondary me-2"></i> Provision Benefits
+                        </h3>
+                        <div class="text-muted poppins-regular fs-15 lh-lg">
+                            {{ job.benefits|linebreaks }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Right Column: Summary Card Sidebar (col-lg-4) -->
+            <div class="col-lg-4">
+                <div class="card border-0 p-4 shadow-sm rounded-3 bg-white mb-4 position-sticky" style="top: 100px;">
+                    <h4 class="poppins-bold text-dark fs-5 border-bottom pb-3 mb-4">
+                        <i class="fa-solid fa-circle-nodes text-primary me-2"></i> Position Summary
+                    </h4>
+                    
+                    <ul class="list-unstyled poppins-regular fs-14 mb-4">
+                        <!-- Location Detail -->
+                        <li class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                            <span class="text-muted"><i class="fa-solid fa-map-location-dot me-2 text-primary"></i> Target Location</span>
+                            <strong class="text-dark poppins-semibold">{{ job.country.name }}</strong>
+                        </li>
+                        <!-- Sector Detail -->
+                        <li class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                            <span class="text-muted"><i class="fa-solid fa-network-wired me-2 text-primary"></i> Job Category</span>
+                            <strong class="text-dark poppins-semibold">{{ job.category.name }}</strong>
+                        </li>
+                        <!-- Salary Scale -->
+                        <li class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                            <span class="text-muted"><i class="fa-solid fa-money-bill-wave me-2 text-secondary"></i> Salary Range</span>
+                            <strong class="text-dark poppins-semibold text-success">{{ job.salary_range|default:"Competitive Scale" }}</strong>
+                        </li>
+                        <!-- Experience Benchmark -->
+                        <li class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                            <span class="text-muted"><i class="fa-solid fa-user-gear me-2 text-primary"></i> Exp. Required</span>
+                            <strong class="text-dark poppins-semibold">{{ job.experience_required }}</strong>
+                        </li>
+                        <!-- Active Vacancies -->
+                        <li class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                            <span class="text-muted"><i class="fa-solid fa-users me-2 text-primary"></i> Open Vacancies</span>
+                            <strong class="text-dark poppins-semibold badge bg-warning text-dark fs-12">{{ job.vacancies }} Openings</strong>
+                        </li>
+                        <!-- Expiration Window -->
+                        <li class="d-flex justify-content-between align-items-center py-2">
+                            <span class="text-muted"><i class="fa-solid fa-hourglass-end me-2 text-danger"></i> Application Expiry</span>
+                            <strong class="text-dark poppins-semibold">{{ job.expiry_date|default:"Open Sourcing" }}</strong>
+                        </li>
+                    </ul>
+                    
+                    <hr>
+
+                    <!-- Safe Share Options -->
+                    <p class="poppins-bold fs-14 text-dark mb-2">Share this position:</p>
+                    <div class="d-flex gap-2">
+                        <a href="https://wa.me/?text={{ request.build_absolute_uri|urlencode }}" target="_blank" class="btn btn-sm btn-outline-custom py-2 flex-grow-1 text-center bg-success text-white border-success">
+                            <i class="fa-brands fa-whatsapp fs-5"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri|urlencode }}" target="_blank" class="btn btn-sm btn-outline-custom py-2 flex-grow-1 text-center bg-primary text-white border-primary">
+                            <i class="fa-brands fa-linkedin-in fs-5"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ==========================================
+             3. RELATED VACANCIES PANEL
+             ========================================== -->
+        {% if related_jobs %}
+            <div class="row g-4 mt-5">
+                <div class="col-12" data-aos="fade-up">
+                    <h3 class="poppins-bold text-dark mb-4">Related Vacancies</h3>
+                </div>
+                {% for r_job in related_jobs %}
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter }}00">
+                        <div class="card border-0 p-4 shadow-sm bg-white rounded-3 h-100 d-flex flex-column justify-content-between transition-all hover-translate">
+                            <div>
+                                <span class="badge bg-secondary text-white uppercase poppins-bold fs-11 mb-2">{{ r_job.job_type }}</span>
+                                <h4 class="poppins-bold text-dark fs-5 mb-2">{{ r_job.title }}</h4>
+                                <p class="text-muted fs-13 mb-3 poppins-semibold"><i class="fa-solid fa-building me-1"></i> {{ r_job.employer.company_name }}</p>
+                                <div class="d-flex gap-2 fs-12 text-muted mb-4 poppins-medium">
+                                    <span><i class="fa-solid fa-map-location-dot me-1 text-primary"></i> {{ r_job.country.name }}</span>
+                                    <span>|</span>
+                                    <span><i class="fa-solid fa-money-bill-wave me-1 text-success"></i> {{ r_job.salary_range|default:"Competitive" }}</span>
+                                </div>
+                            </div>
+                            <div class="d-grid mt-auto">
+                                <a href="{% url 'jobs:job_detail' r_job.slug %}" class="btn btn-outline-custom w-100 py-2 fs-13 poppins-semibold">View Vacancy</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+    </div>
+</section>
+{% endblock %}

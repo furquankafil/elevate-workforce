@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block seo_title %}Page Not Found (404) | Elevate Workforce{% endblock %}
+
+{% block content %}
+<!-- ==========================================
+     1. LUXURY 404 REDIRECT WORKSPACE
+     ========================================== -->
+<section class="section-padding bg-gradient-premium d-flex align-items-center justify-content-center overflow-hidden" style="min-height: 80vh;">
+    <!-- Abstract SVG Background Element -->
+    <div class="position-absolute top-50 start-50 translate-middle opacity-5" style="width: 600px; height: 600px; pointer-events: none;">
+        <svg viewBox="0 0 100 100" fill="currentColor" class="text-white w-100 h-100">
+            <path d="M50 15 L80 45 L65 45 L65 75 L35 75 L35 45 L20 45 Z" />
+        </svg>
+    </div>
+
+    <div class="container position-relative z-1 text-center">
+        <div class="row justify-content-center">
+            <div class="col-lg-7" data-aos="zoom-in">
+                
+                <!-- Glassmorphic Error Container Card -->
+                <div class="card-glass p-5 border border-opacity-10 shadow-lg text-white">
+                    <p class="display-1 poppins-bold text-warning mb-2" style="font-size: 8rem; line-height: 1;">404</p>
+                    <h1 class="poppins-bold fs-3 uppercase tracking-wider mb-3" style="color: #00AEEF;">Path Not Located</h1>
+                    <p class="text-light-muted fs-15 poppins-regular mb-5 max-w-500 mx-auto">
+                        The resource link you are attempting to access has migrated, expired, or undergone a compliance update. Use the navigation channels below to return to our primary recruitment networks.
+                    </p>
+
+                    <!-- Navigational Re-routing Directory -->
+                    <div class="d-flex flex-wrap justify-content-center gap-3">
+                        <a href="{% url 'core:index' %}" class="btn btn-secondary-custom px-4 py-3 poppins-semibold">
+                            <i class="fa-solid fa-house-chimney me-1"></i> Return Home
+                        </a>
+                        <a href="{% url 'jobs:job_list' %}" class="btn btn-outline-custom border-white text-white px-4 py-3 poppins-semibold">
+                            <i class="fa-solid fa-briefcase me-1"></i> Search Open Jobs
+                        </a>
+                        <a href="{% url 'core:contact' %}" class="btn btn-outline-custom border-white text-white px-4 py-3 poppins-semibold">
+                            <i class="fa-solid fa-phone me-1"></i> Sourcing Assistance
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

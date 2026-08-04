@@ -1,0 +1,237 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block seo_title %}Area of Specialization & Sourcing | Elevate Workforce{% endblock %}
+{% block seo_desc %}Explore our targeted recruitment specializations: Technical trade evaluation, visa endorsements, GCC expansions, and industrial staffing.{% endblock %}
+
+{% block content %}
+<!-- ==========================================
+     1. HERO HERO BANNER
+     ========================================== -->
+<section class="bg-gradient-premium text-white py-5 position-relative overflow-hidden">
+    <div class="container position-relative z-1 py-3 text-center">
+        <nav aria-label="breadcrumb" class="d-inline-block">
+            <ol class="breadcrumb justify-content-center bg-white bg-opacity-10 py-2 px-3 rounded-pill mb-3">
+                <li class="breadcrumb-item"><a href="{% url 'core:index' %}" class="text-white text-decoration-none fs-13 poppins-medium">Home</a></li>
+                <li class="breadcrumb-item active text-white text-opacity-50 fs-13 poppins-medium" aria-current="page">Specialization</li>
+            </ol>
+        </nav>
+        <h1 class="display-4 poppins-bold mb-2">Area of Specialization</h1>
+        <p class="lead text-light-muted max-w-750 mx-auto fs-16 poppins-regular">
+            Integrated HR solutions designed to anticipate your needs, letting you stay ahead of every operational challenge.
+        </p>
+    </div>
+</section>
+
+<!-- ==========================================
+     2. DYNAMIC SOLUTIONS SUMMARY
+     ========================================== -->
+<section class="section-padding bg-white">
+    <div class="container">
+        <div class="row align-items-center g-5 mb-5" data-aos="fade-up">
+            <div class="col-lg-7">
+                <span class="badge bg-primary bg-opacity-10 text-primary uppercase poppins-bold px-3 py-2 mb-2 fs-13">HR Solutions</span>
+                <h2 class="poppins-bold display-6 mb-3">Integrated HR Solutions for an Expanding Workforce</h2>
+                <p class="text-muted fs-15 poppins-regular mb-4">
+                    Our comprehensive HR Solutions are designed to anticipate your needs, allowing you to stay ahead of every obstacle. Elevate Workforce maintains office and testing presences to facilitate the recruitment process for both employers and candidates. Being close to key recruitment locations gives us direct access to thousands of qualified candidates. We provide organizations with access to our global experience while maintaining a solid local presence.
+                </p>
+                <p class="poppins-semibold text-dark fs-15 mb-0">
+                    Explore our offerings and discover how our services simplify the complicated:
+                </p>
+            </div>
+            <div class="col-lg-5">
+                <div class="card card-glass p-4 bg-gradient-premium text-white border-0 shadow">
+                    <h5 class="poppins-bold text-warning mb-3"><i class="fa-solid fa-headset me-2"></i> 24/7 Service Support</h5>
+                    <p class="fs-14 text-light-muted poppins-regular mb-0">
+                        Swift response and transparent communication with our clients ensures a seamless after-sales experience while maximizing their workforce plans.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3x2 Grid of Offerings -->
+        <div class="row g-4" data-aos="fade-up">
+            <!-- 1. Hiring / Sourcing -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card card-glass p-4 h-100 border shadow-sm">
+                    <div class="text-primary mb-3 fs-2"><i class="fa-solid fa-user-gear"></i></div>
+                    <h4 class="poppins-bold fs-16 text-dark mb-2">Hiring / Sourcing</h4>
+                    <p class="text-muted fs-13 mb-0">Our global talent acquisition specialists help you hire qualified candidates in the stipulated time frame, no matter how niche the role is.</p>
+                </div>
+            </div>
+            <!-- 2. Visa Processing -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card card-glass p-4 h-100 border shadow-sm">
+                    <div class="text-secondary mb-3 fs-2"><i class="fa-solid fa-passport"></i></div>
+                    <h4 class="poppins-bold fs-16 text-dark mb-2">Visa Processing</h4>
+                    <p class="text-muted fs-13 mb-0">Our global mobility services simplify immigration by considering all immigration requirements when deploying a workforce.</p>
+                </div>
+            </div>
+            <!-- 3. Business Setup Expertise -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card card-glass p-4 h-100 border shadow-sm">
+                    <div class="text-warning mb-3 fs-2"><i class="fa-solid fa-briefcase"></i></div>
+                    <h4 class="poppins-bold fs-16 text-dark mb-2">Business Setup Expertise</h4>
+                    <p class="text-muted fs-13 mb-0">We hold expertise in crafting expansion strategies for businesses in the Gulf to support your company with manpower & other business needs.</p>
+                </div>
+            </div>
+            <!-- 4. HR Solutions -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card card-glass p-4 h-100 border shadow-sm">
+                    <div class="text-primary mb-3 fs-2"><i class="fa-solid fa-network-wired"></i></div>
+                    <h4 class="poppins-bold fs-16 text-dark mb-2">HR Solutions</h4>
+                    <p class="text-muted fs-13 mb-0">We offer complete HR solutions, including RPO, professional staffing, and organized labor supply backed by decades of experience.</p>
+                </div>
+            </div>
+            <!-- 5. Trade & Testing Center -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card card-glass p-4 h-100 border shadow-sm">
+                    <div class="text-secondary mb-3 fs-2"><i class="fa-solid fa-vial-circle-check"></i></div>
+                    <h4 class="poppins-bold fs-16 text-dark mb-2">Trade & Testing Center</h4>
+                    <p class="text-muted fs-13 mb-0">Thanks to our extensive network of in-house testing and training centers, every candidate you hire will be qualified to perform their respective job title.</p>
+                </div>
+            </div>
+            <!-- 6. 24/7 Support -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card card-glass p-4 h-100 border shadow-sm">
+                    <div class="text-warning mb-3 fs-2"><i class="fa-solid fa-headset"></i></div>
+                    <h4 class="poppins-bold fs-16 text-dark mb-2">24/7 Service Support</h4>
+                    <p class="text-muted fs-13 mb-0">Swift response and transparent communication with our clients ensures a seamless experience while maximizing workforce plans.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ==========================================
+     3. INDUSTRIES WE CATER TO
+     ========================================== -->
+<section class="section-padding bg-light border-top">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <span class="badge bg-secondary bg-opacity-10 text-secondary uppercase poppins-bold px-3 py-2 mb-2 fs-13">Sourcing Verticals</span>
+            <h2 class="poppins-bold display-6">Industries We Cater To</h2>
+            <p class="text-muted max-w-600 mx-auto">Providing certified, compliant manpower for diverse industrial classifications globally.</p>
+        </div>
+
+        <div class="row row-cols-2 row-cols-md-4 row-cols-lg-5 g-4 justify-content-center text-center" data-aos="fade-up" data-aos-delay="200">
+            <!-- 1. Oil & Gas -->
+            <div class="col">
+                <div class="card border-0 p-3 h-100 shadow-sm bg-white hover-translate transition-all">
+                    <div class="text-primary mb-2 fs-3"><i class="fa-solid fa-oil-well"></i></div>
+                    <h5 class="poppins-bold fs-14 text-dark mb-0">Oil & Gas</h5>
+                </div>
+            </div>
+            <!-- 2. Hospitality -->
+            <div class="col">
+                <div class="card border-0 p-3 h-100 shadow-sm bg-white hover-translate transition-all">
+                    <div class="text-secondary mb-2 fs-3"><i class="fa-solid fa-bell-concierge"></i></div>
+                    <h5 class="poppins-bold fs-14 text-dark mb-0">Hospitality</h5>
+                </div>
+            </div>
+            <!-- 3. Aviation -->
+            <div class="col">
+                <div class="card border-0 p-3 h-100 shadow-sm bg-white hover-translate transition-all">
+                    <div class="text-primary mb-2 fs-3"><i class="fa-solid fa-plane"></i></div>
+                    <h5 class="poppins-bold fs-14 text-dark mb-0">Aviation</h5>
+                </div>
+            </div>
+            <!-- 4. Retail -->
+            <div class="col">
+                <div class="card border-0 p-3 h-100 shadow-sm bg-white hover-translate transition-all">
+                    <div class="text-secondary mb-2 fs-3"><i class="fa-solid fa-store"></i></div>
+                    <h5 class="poppins-bold fs-14 text-dark mb-0">Retail</h5>
+                </div>
+            </div>
+            <!-- 5. Construction -->
+            <div class="col">
+                <div class="card border-0 p-3 h-100 shadow-sm bg-white hover-translate transition-all">
+                    <div class="text-primary mb-2 fs-3"><i class="fa-solid fa-helmet-safety"></i></div>
+                    <h5 class="poppins-bold fs-14 text-dark mb-0">Construction</h5>
+                </div>
+            </div>
+            <!-- 6. Healthcare -->
+            <div class="col">
+                <div class="card border-0 p-3 h-100 shadow-sm bg-white hover-translate transition-all">
+                    <div class="text-secondary mb-2 fs-3"><i class="fa-solid fa-user-nurse"></i></div>
+                    <h5 class="poppins-bold fs-14 text-dark mb-0">Healthcare</h5>
+                </div>
+            </div>
+            <!-- 7. FMCG -->
+            <div class="col">
+                <div class="card border-0 p-3 h-100 shadow-sm bg-white hover-translate transition-all">
+                    <div class="text-primary mb-2 fs-3"><i class="fa-solid fa-basket-shopping"></i></div>
+                    <h5 class="poppins-bold fs-14 text-dark mb-0">FMCG</h5>
+                </div>
+            </div>
+            <!-- 8. Transportation -->
+            <div class="col">
+                <div class="card border-0 p-3 h-100 shadow-sm bg-white hover-translate transition-all">
+                    <div class="text-secondary mb-2 fs-3"><i class="fa-solid fa-bus"></i></div>
+                    <h5 class="poppins-bold fs-14 text-dark mb-0">Transportation</h5>
+                </div>
+            </div>
+            <!-- 9. Entertainment -->
+            <div class="col">
+                <div class="card border-0 p-3 h-100 shadow-sm bg-white hover-translate transition-all">
+                    <div class="text-primary mb-2 fs-3"><i class="fa-solid fa-film"></i></div>
+                    <h5 class="poppins-bold fs-14 text-dark mb-0">Entertainment</h5>
+                </div>
+            </div>
+            <!-- 10. Contracting -->
+            <div class="col">
+                <div class="card border-0 p-3 h-100 shadow-sm bg-white hover-translate transition-all">
+                    <div class="text-secondary mb-2 fs-3"><i class="fa-solid fa-file-contract"></i></div>
+                    <h5 class="poppins-bold fs-14 text-dark mb-0">Contracting</h5>
+                </div>
+            </div>
+            <!-- 11. Facility Management -->
+            <div class="col">
+                <div class="card border-0 p-3 h-100 shadow-sm bg-white hover-translate transition-all">
+                    <div class="text-primary mb-2 fs-3"><i class="fa-solid fa-building-circle-check"></i></div>
+                    <h5 class="poppins-bold fs-14 text-dark mb-0">Facility Management</h5>
+                </div>
+            </div>
+            <!-- 12. Logistics -->
+            <div class="col">
+                <div class="card border-0 p-3 h-100 shadow-sm bg-white hover-translate transition-all">
+                    <div class="text-secondary mb-2 fs-3"><i class="fa-solid fa-truck-moving"></i></div>
+                    <h5 class="poppins-bold fs-14 text-dark mb-0">Logistics</h5>
+                </div>
+            </div>
+            <!-- 13. Manufacturing -->
+            <div class="col">
+                <div class="card border-0 p-3 h-100 shadow-sm bg-white hover-translate transition-all">
+                    <div class="text-primary mb-2 fs-3"><i class="fa-solid fa-industry"></i></div>
+                    <h5 class="poppins-bold fs-14 text-dark mb-0">Manufacturing</h5>
+                </div>
+            </div>
+            <!-- 14. Mechanical -->
+            <div class="col">
+                <div class="card border-0 p-3 h-100 shadow-sm bg-white hover-translate transition-all">
+                    <div class="text-secondary mb-2 fs-3"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                    <h5 class="poppins-bold fs-14 text-dark mb-0">Mechanical</h5>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ==========================================
+     4. COMPLIANT CTA
+     ========================================== -->
+<section class="section-padding bg-gradient-premium text-white text-center position-relative overflow-hidden">
+    <div class="container position-relative z-1" data-aos="fade-up">
+        <span class="badge bg-warning text-dark uppercase poppins-bold px-3 py-2 mb-2 fs-12">LET’S HEAR YOU!</span>
+        <h2 class="display-6 poppins-bold mb-3 text-white">Ready to Take Your Project to the Next Level?</h2>
+        <p class="lead text-light-muted max-w-600 mx-auto mb-4 fs-16">
+            Let’s start talking about your project or idea and find out how we can help you achieve rapid, compliant workforce expansion.
+        </p>
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'core:contact' %}" class="btn btn-secondary-custom px-4 py-3 poppins-bold uppercase tracking-wider">REQUEST A FREE QUOTE</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

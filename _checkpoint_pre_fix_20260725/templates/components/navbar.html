@@ -1,0 +1,92 @@
+{% load static %}
+<nav class="navbar navbar-expand-xl sticky-top custom-navbar py-3">
+    <div class="container-fluid px-md-5">
+        <!-- Brand Logo Image -->
+        <a class="navbar-brand d-flex align-items-center" href="{% url 'core:index' %}">
+            <img src="{% static 'images/logo.png' %}" alt="Elevate Workforce" class="navbar-brand-logo me-2 flex-shrink-0" loading="eager" />
+        </a>
+
+        <!-- Mobile Toggle Button -->
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navigation Links -->
+        <div class="collapse navbar-collapse" id="mainNavbar">
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0 poppins-medium">
+                <li class="nav-item"><a class="nav-link" href="{% url 'core:index' %}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'core:about' %}">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'core:services' %}">Services</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'core:specialization' %}">Specialization</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'jobs:job_list' %}">Jobs</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'core:gallery' %}">Gallery</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'core:blog_list' %}">Insights</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'core:contact' %}">Contact</a></li>
+            </ul>
+
+            <!-- Right Align Actions, Language Translator & Account -->
+            <div class="d-flex align-items-center gap-2 flex-wrap flex-lg-nowrap">
+                
+                <!-- Live Language Translation Dropdown -->
+                <div class="dropdown me-2">
+                    <button class="btn btn-outline-custom dropdown-toggle poppins-semibold d-flex align-items-center gap-2 py-2" type="button" id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 13px;">
+                        <i class="fa-solid fa-language fs-5 text-secondary"></i>
+                        <span id="active-lang">English</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-3 p-2 poppins-medium" aria-labelledby="langDropdown" style="font-size: 13px;">
+                        <li><a class="dropdown-item rounded-2 py-2 lang-select" href="#" data-lang="en">🇺🇸 English</a></li>
+                        <li><a class="dropdown-item rounded-2 py-2 lang-select" href="#" data-lang="hi">🇮🇳 हिन्दी</a></li>
+                        <li><a class="dropdown-item rounded-2 py-2 lang-select" href="#" data-lang="ar">🇸🇦 العربية</a></li>
+                        <li><a class="dropdown-item rounded-2 py-2 lang-select" href="#" data-lang="ru">🇷🇺 Русский</a></li>
+                    </ul>
+                </div>
+
+                <!-- Google Translate Core Container -->
+                <div id="google_translate_element" style="display: none;"></div>
+                <script>
+                    function googleTranslateElementInit() {
+                        new google.translate.TranslateElement({
+                            pageLanguage: 'en',
+                            includedLanguages: 'en,hi,ar,ru',
+                            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                            autoDisplay: false
+                        }, 'google_translate_element');
+                    }
+                </script>
+                <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+                <!-- Theme Toggle -->
+                <button id="theme-toggle" class="btn btn-theme-toggle border-0 px-2" aria-label="Change Display Theme">
+                    <i class="fa-solid fa-moon icon-dark"></i>
+                    <i class="fa-solid fa-sun icon-light d-none"></i>
+                </button>
+
+                {% if request.user.is_authenticated %}
+                    <div class="dropdown">
+                        <button class="btn btn-primary-custom dropdown-toggle poppins-semibold d-flex align-items-center gap-2 py-2" type="button" id="dashboardDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 13px;">
+                            <i class="fa-solid fa-user-circle fs-5"></i>
+                            My Account
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-3 p-2 poppins-medium" aria-labelledby="dashboardDropdown" style="font-size: 13px;">
+                            <li><a class="dropdown-item rounded-2 py-2" href="{% url 'users:dashboard' %}"><i class="fa-solid fa-chart-line me-2 text-primary"></i> Dashboard</a></li>
+                            <li><a class="dropdown-item rounded-2 py-2" href="{% url 'users:profile' %}"><i class="fa-solid fa-user-gear me-2 text-secondary"></i> Edit Profile</a></li>
+                            <li><hr class="dropdown-divider my-2"></li>
+                            <li><a class="dropdown-item rounded-2 py-2 text-danger" href="{% url 'users:logout' %}"><i class="fa-solid fa-right-from-bracket me-2"></i> Log Out</a></li>
+                        </ul>
+                    </div>
+                {% else %}
+                    <a href="{% url 'users:login' %}" class="btn btn-outline-custom poppins-semibold py-2 px-3" style="font-size: 13px;">Login</a>
+                    <div class="dropdown">
+                        <button class="btn btn-primary-custom dropdown-toggle poppins-semibold py-2 px-3" type="button" id="registerDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 13px;">
+                            Register
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-3 p-2 poppins-medium" aria-labelledby="registerDropdown" style="font-size: 13px;">
+                            <li><a class="dropdown-item rounded-2 py-2" href="{% url 'users:register_candidate' %}"><i class="fa-solid fa-briefcase me-2 text-primary"></i> As Candidate</a></li>
+                            <li><a class="dropdown-item rounded-2 py-2" href="{% url 'users:register_employer' %}"><i class="fa-solid fa-building me-2 text-secondary"></i> As Corporate Client</a></li>
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>

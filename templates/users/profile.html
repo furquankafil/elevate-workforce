@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block seo_title %}Update Profile Details | {{ seo_settings.site_name|default:"Elevate Workforce" }}{% endblock %}
+
+{% block content %}
+<!-- ==========================================
+     1. PROFILE HERO HEADER
+     ========================================== -->
+<section class="bg-gradient-premium text-white py-4 position-relative overflow-hidden">
+    <div class="container position-relative z-1 py-3 text-center">
+        <span class="badge bg-warning text-dark uppercase poppins-bold px-3 py-1 mb-2 fs-12">Profile Settings</span>
+        <h1 class="poppins-bold text-white mb-1">Edit Account Profile</h1>
+        <p class="lead text-light-muted mb-0 fs-15 poppins-regular">
+            Keep your professional coordinates up-to-date to maximize recruitment matches.
+        </p>
+    </div>
+</section>
+
+<!-- ==========================================
+     2. PROFILE MODIFICATION FORM
+     ========================================== -->
+<section class="section-padding bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8" data-aos="fade-up">
+                <div class="card border-0 p-4 p-md-5 shadow-sm rounded-3 bg-white">
+                    <h3 class="poppins-bold text-dark fs-4 border-bottom pb-2 mb-4">
+                        <i class="fa-solid fa-user-pen text-primary me-2"></i> Account & Profile Parameters
+                    </h3>
+
+                    <!-- Secure Multi-part Form (Handles Physical Assets) -->
+                    <form action="." method="post" enctype="multipart/form-data" class="needs-validation poppins-medium" novalidate>
+                        {% csrf_token %}
+
+                        <!-- Unified Account Verification Warnings -->
+                        {% if user_form.errors or profile_form.errors %}
+                            <div class="alert alert-danger shadow-sm border-0 py-3 px-4 rounded-3 mb-4 fs-13 poppins-medium" role="alert">
+                                <h6 class="poppins-bold text-danger mb-2"><i class="fa-solid fa-triangle-exclamation"></i> Action Required:</h6>
+                                Please check and correct the values in the highlighted fields.
+                            </div>
+                        {% endif %}
+
+                        <!-- PART 1: Core Account parameters (User Form) -->
+                        <h4 class="poppins-bold text-primary fs-5 mb-3">
+                            <i class="fa-solid fa-id-card-clip text-secondary me-1"></i> Core Credentials
+                        </h4>
+                        <div class="row g-3 mb-5">
+                            <div class="col-md-6">
+                                <label class="form-label text-dark fs-14 poppins-semibold">First Name</label>
+                                {{ user_form.first_name }}
+                                {% if user_form.first_name.errors %}
+                                    <div class="text-danger fs-12 mt-1 poppins-medium">{{ user_form.first_name.errors.as_text }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label text-dark fs-14 poppins-semibold">Last Name</label>
+                                {{ user_form.last_name }}
+                                {% if user_form.last_name.errors %}
+                                    <div class="text-danger fs-12 mt-1 poppins-medium">{{ user_form.last_name.errors.as_text }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label text-dark fs-14 poppins-semibold">WhatsApp / Phone Contact Number</label>
+                                {{ user_form.phone_number }}
+                                {% if user_form.phone_number.errors %}
+                                    <div class="text-danger fs-12 mt-1 poppins-medium">{{ user_form.phone_number.errors.as_text }}</div>
+                                {% endif %}
+                                <div class="form-text text-muted fs-11 poppins-regular">Include country area codes for smooth direct communication.</div>
+                            </div>
+                        </div>
+
+                        <!-- PART 2: Profile Specifications (Dynamic based on user role) -->
+                        <h4 class="poppins-bold text-primary fs-5 border-top pt-4 mb-3">
+                            <i class="fa-solid fa-sliders text-secondary me-1"></i> 
+                            {% if request.user.is_candidate %}Professional Sourcing Details{% else %}Corporate Identity Details{% endif %}
+                        </h4>
+                        
+                        <div class="row g-3 mb-4">
+                            {% for field in profile_form %}
+                                <div class="col-12 {% if field.name == 'experience_years' %}col-md-6{% endif %}">
+                                    <label class="form-label text-dark fs-14 poppins-semibold">{{ field.label }}</label>
+                                    
+                                    <!-- Render Inputs -->
+                                    {{ field }}
+
+                                    <!-- Render Errors -->
+                                    {% if field.errors %}
+                                        <div class="text-danger fs-12 mt-1 poppins-medium">
+                                            {{ field.errors.as_text }}
+                                        </div>
+                                    {% endif %}
+
+                                    <!-- Render Help texts -->
+                                    {% if field.help_text %}
+                                        <div class="form-text text-muted fs-11 poppins-regular">{{ field.help_text|safe }}</div>
+                                    {% endif %}
+
+                                    <!-- Candidate Resume Preview Helper -->
+                                    {% if field.name == 'resume' and profile_form.instance.resume %}
+                                        <div class="mt-2 p-2 border rounded bg-light d-flex align-items-center justify-content-between">
+                                            <span class="fs-12 text-muted poppins-medium">
+                                                <i class="fa-solid fa-circle-check text-success"></i> Current active CV: 
+                                                <strong>{{ profile_form.instance.resume.name|truncatechars:30 }}</strong>
+                                            </span>
+                                            <a href="{{ profile_form.instance.resume.url }}" target="_blank" class="btn btn-sm btn-outline-custom py-1 px-3 fs-11 poppins-bold">View CV</a>
+                                        </div>
+                                    {% endif %}
+
+                                    <!-- Employer Logo Preview Helper -->
+                                    {% if field.name == 'company_logo' and profile_form.instance.company_logo %}
+                                        <div class="mt-2 text-start">
+                                            <p class="fs-12 text-muted mb-2">Current Active Corporate Logo Preview:</p>
+                                            <img src="{{ profile_form.instance.company_logo.url }}" class="rounded border p-1" style="height: 60px; width: 60px; object-fit: contain;" alt="Logo Preview">
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <!-- Action Controls -->
+                        <div class="d-grid gap-2 mt-5 pt-3 border-top">
+                            <button type="submit" class="btn btn-primary-custom w-100 py-3 poppins-bold uppercase tracking-wider">
+                                Save Profile Updates
+                            </button>
+                            <a href="{% url 'users:dashboard' %}" class="btn btn-outline-custom w-100 py-2 fs-14 poppins-semibold text-center">Return to Dashboard</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

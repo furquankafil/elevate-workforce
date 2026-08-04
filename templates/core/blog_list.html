@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block seo_title %}International Sourcing & Career Insights | Elevate Workforce{% endblock %}
+{% block seo_desc %}Stay informed with the latest updates on international recruitment trends, global immigration procedures, and professional compliance guidelines.{% endblock %}
+
+{% block content %}
+<!-- ==========================================
+     1. HERO HERO BANNER
+     ========================================== -->
+<section class="bg-gradient-premium text-white py-5 position-relative overflow-hidden">
+    <div class="container position-relative z-1 py-3 text-center">
+        <nav aria-label="breadcrumb" class="d-inline-block">
+            <ol class="breadcrumb justify-content-center bg-white bg-opacity-10 py-2 px-3 rounded-pill mb-3">
+                <li class="breadcrumb-item"><a href="{% url 'core:index' %}" class="text-white text-decoration-none fs-13 poppins-medium">Home</a></li>
+                <li class="breadcrumb-item active text-white text-opacity-50 fs-13 poppins-medium" aria-current="page">Insights</li>
+            </ol>
+        </nav>
+        <h1 class="display-4 poppins-bold mb-2">Corporate Insights</h1>
+        <p class="lead text-light-muted max-w-600 mx-auto fs-16 poppins-regular">
+            Global immigration updates, technical hiring advisories, and career guides compiled by our compliance experts.
+        </p>
+    </div>
+</section>
+
+<!-- ==========================================
+     2. BLOG POSTS GRID
+     ========================================== -->
+<section class="section-padding bg-light">
+    <div class="container">
+        
+        <div class="row g-4">
+            {% for post in blogs %}
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter }}00">
+                    <!-- Glassmorphic Blog Card -->
+                    <div class="card rounded-card border-0 shadow-sm bg-white overflow-hidden h-100 d-flex flex-column justify-content-between transition-all hover-translate">
+                        
+                        <!-- Thumbnail Image Wrapper -->
+                        <div class="position-relative overflow-hidden" style="height: 200px;">
+                            {% if post.thumbnail %}
+                                <img src="{{ post.thumbnail.url }}" class="w-100 h-100 object-fit-cover transition-transform" style="transition: transform 0.5s ease;" alt="{{ post.title }}" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                            {% else %}
+                                <div class="w-100 h-100 bg-secondary d-flex align-items-center justify-content-center text-white">
+                                    <i class="fa-solid fa-newspaper fs-1 opacity-25"></i>
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Card Text Details -->
+                        <div class="p-4 d-flex flex-column flex-grow-1 justify-content-between">
+                            <div>
+                                <div class="d-flex align-items-center gap-2 mb-2 text-muted fs-12 poppins-medium">
+                                    <span><i class="fa-solid fa-calendar-day"></i> {{ post.created_at|date:"M d, Y" }}</span>
+                                    <span>•</span>
+                                    <span><i class="fa-solid fa-user-circle"></i> {{ post.author.get_full_name|default:"Elevate Staff" }}</span>
+                                </div>
+                                
+                                <h3 class="poppins-bold text-dark fs-5 mb-2 line-clamp-2">
+                                    {{ post.title }}
+                                </h3>
+                                
+                                <p class="text-muted fs-14 poppins-regular mb-4 line-clamp-3">
+                                    {{ post.content|striptags|truncatewords:20 }}
+                                </p>
+                            </div>
+                            
+                            <div class="d-grid pt-3 border-top mt-auto">
+                                <a href="{% url 'core:blog_detail' post.slug %}" class="btn btn-outline-custom w-100 py-2 fs-14 poppins-semibold text-center">
+                                    Read Insights <i class="fa-solid fa-angle-right ms-1"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12 text-center py-5">
+                    <div class="text-muted mb-3 fs-1"><i class="fa-solid fa-newspaper"></i></div>
+                    <h3 class="poppins-bold fs-5 text-dark">No Articles Published Yet</h3>
+                    <p class="text-muted max-w-400 mx-auto fs-14">Our insights board is currently being compiled. Please register for our newsletter to receive direct email alerts for updates.</p>
+                    <a href="{% url 'core:index' %}" class="btn btn-primary-custom px-4 py-2 mt-2">Return Home</a>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- ==========================================
+             3. PAGINATION INTERACTION CONTROLS
+             ========================================== -->
+        {% if blogs.has_other_pages %}
+            <nav aria-label="Blog Page navigation" class="mt-5">
+                <ul class="pagination justify-content-center mb-0">
+                    <!-- Previous Button -->
+                    {% if blogs.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link shadow-sm border-0 rounded-circle d-flex align-items-center justify-content-center me-2" href="?page={{ blogs.previous_page_number }}" style="width: 40px; height: 40px; color: var(--primary-color);">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </a>
+                        </li>
+                    {% endif %}
+
+                    <!-- Page Index Loop -->
+                    {% for num in blogs.paginator.page_range %}
+                        {% if blogs.number == num %}
+                            <li class="page-item active">
+                                <span class="page-link border-0 shadow-sm rounded-circle d-flex align-items-center justify-content-center me-2 bg-primary text-white" style="width: 40px; height: 40px;">{{ num }}</span>
+                            </li>
+                        {% elif num > blogs.number|add:'-3' and num < blogs.number|add:'3' %}
+                            <li class="page-item">
+                                <a class="page-link border-0 shadow-sm rounded-circle d-flex align-items-center justify-content-center me-2 text-dark bg-white" href="?page={{ num }}" style="width: 40px; height: 40px;">{{ num }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+
+                    <!-- Next Button -->
+                    {% if blogs.has_next %}
+                        <li class="page-item">
+                            <a class="page-link shadow-sm border-0 rounded-circle d-flex align-items-center justify-content-center" href="?page={{ blogs.next_page_number }}" style="width: 40px; height: 40px; color: var(--primary-color);">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        {% endif %}
+
+    </div>
+</section>
+{% endblock %}

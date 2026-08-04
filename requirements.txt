@@ -1,0 +1,25 @@
+# Django Framework
+Django>=5.0.0,<5.1.0
+
+# Database Connections
+psycopg2-binary>=2.9.9
+
+# Environment Variables & Security Configuration
+django-environ>=0.11.2
+
+# Image Processing (For Blogs, Resumes, and Gallery)
+Pillow>=10.2.0
+
+# WSGI Server for Production Deployment
+gunicorn>=21.2.0
+
+# Static File Serving in Production
+whitenoise>=6.6.0
+
+# Form Styling Helpers
+django-crispy-forms>=2.1
+crispy-bootstrap5>=2024.2
+
+# Utilities & OTP Readiness
+requests>=2.31.0
+PyJWT>=2.8.0

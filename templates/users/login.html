@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block seo_title %}Account Login | {{ seo_settings.site_name|default:"Elevate Workforce" }}{% endblock %}
+{% block seo_desc %}Securely log into your Elevate Workforce dashboard to track applications, schedule interviews, or update your profile.{% endblock %}
+
+{% block content %}
+<!-- ==========================================
+     1. ONBOARDING LOGIN WORKSPACE
+     ========================================== -->
+<section class="section-padding bg-light d-flex align-items-center" style="min-height: 80vh;">
+    <div class="container">
+        <div class="row g-0 rounded-4 overflow-hidden shadow-lg bg-white border border-light justify-content-center">
+            
+            <!-- Left Branding Panel (col-lg-5) -->
+            <div class="col-lg-5 bg-gradient-premium text-white d-flex flex-column justify-content-between p-5 position-relative">
+                <div class="position-absolute bottom-0 start-0 w-100 h-100 opacity-10 pointer-events-none" style="background-image: radial-gradient(circle, rgba(255,255,255,0.15) 10%, transparent 80%);"></div>
+                
+                <div class="position-relative z-1">
+                    <a class="text-white text-decoration-none fs-5 poppins-bold uppercase tracking-wider d-inline-block mb-5" href="{% url 'core:index' %}">
+                        Elevate <span style="color: #00AEEF;">Workforce</span>
+                    </a>
+                    
+                    <h2 class="display-6 poppins-bold mb-4">Welcome Back</h2>
+                    <p class="fs-15 text-light-muted mb-4 lh-lg">
+                        Sign in to access your secure portal. Track open vacancies, monitor application screening stages, or coordinate candidate interviews.
+                    </p>
+                </div>
+                
+                <!-- Trust Highlights -->
+                <div class="position-relative z-1 border-top border-white border-opacity-10 pt-4">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="bg-white bg-opacity-10 p-2 rounded-circle text-warning fs-5" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                            <i class="fa-solid fa-lock"></i>
+                        </div>
+                        <div>
+                            <h6 class="poppins-bold fs-14 mb-0">Secure Portal</h6>
+                            <p class="fs-12 text-light-muted mb-0">Encrypted user sessions and standard CSRF data validation protocols.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Login Form Panel (col-lg-6) -->
+            <div class="col-lg-6 p-4 p-md-5 bg-white d-flex flex-column justify-content-center">
+                <div class="mb-4">
+                    <span class="badge bg-primary bg-opacity-10 text-primary uppercase poppins-bold px-3 py-2 mb-2 fs-12">Portal Access</span>
+                    <h1 class="poppins-bold fs-3 text-dark mb-1">Account Login</h1>
+                    <p class="text-muted fs-14 poppins-regular">Please enter your registered credentials below.</p>
+                </div>
+
+                <!-- Login Fields -->
+                <form action="." method="post" class="needs-validation poppins-medium" novalidate>
+                    {% csrf_token %}
+                    
+                    <!-- Form Errors Block -->
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger shadow-sm py-3 px-4 rounded-3 border-0 fs-13 poppins-medium" role="alert">
+                            <i class="fa-solid fa-triangle-exclamation"></i> Invalid credentials. Please verify your details.
+                        </div>
+                    {% endif %}
+
+                    <!-- Form Input Fields -->
+                    <div class="row g-3">
+                        {% for field in form %}
+                            <div class="col-12">
+                                <label class="form-label text-dark fs-14 poppins-semibold">{{ field.label }}</label>
+                                
+                                <div class="input-group">
+                                    {% if field.name == 'username' %}
+                                        <span class="input-group-text bg-light border-light text-muted"><i class="fa-solid fa-envelope"></i></span>
+                                        <input type="email" name="{{ field.name }}" class="form-control bg-light border-light text-dark fs-14 {% if form.errors %}is-invalid{% endif %}" placeholder="Enter registered email address" required autofocus>
+                                    {% elif field.name == 'password' %}
+                                        <span class="input-group-text bg-light border-light text-muted"><i class="fa-solid fa-lock"></i></span>
+                                        <input type="password" name="{{ field.name }}" class="form-control bg-light border-light text-dark fs-14 {% if form.errors %}is-invalid{% endif %}" placeholder="Enter your password" required>
+                                    {% else %}
+                                        {{ field }}
+                                    {% endif %}
+                                </div>
+
+                                {% if field.errors %}
+                                    <div class="text-danger fs-12 mt-1 poppins-medium">
+                                        {{ field.errors.as_text }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Submit Button Actions -->
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn btn-primary-custom w-100 py-3 poppins-bold uppercase tracking-wider">
+                            Sign In to Portal
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Onboarding Actions redirection block -->
+                <div class="text-center mt-4 border-top pt-4">
+                    <p class="text-muted fs-14 mb-0">
+                        Don't have a candidate account yet? 
+                        <a href="{% url 'users:register_candidate' %}" class="text-primary text-decoration-none poppins-bold">Register as Candidate</a>
+                    </p>
+                </div>
+
+                <!-- Employer Registration Notice -->
+                <div class="alert alert-info shadow-sm py-3 px-4 rounded-3 border-0 fs-13 poppins-medium mt-3 mb-0" role="alert">
+                    <h6 class="poppins-bold text-dark mb-1"><i class="fa-solid fa-building me-2"></i>Hiring Company?</h6>
+                    Employer registration is currently disabled. Please contact Elevate Workforce to become an approved hiring partner.
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock %}

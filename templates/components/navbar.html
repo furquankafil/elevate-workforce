@@ -1,19 +1,19 @@
 {% load static %}
-<nav class="navbar navbar-expand-xl sticky-top custom-navbar py-3">
-    <div class="container-xl">
+<nav class="navbar navbar-expand-xxl sticky-top custom-navbar py-3">
+    <div class="container-fluid px-3 px-md-4">
         <!-- Brand Logo Image (Enlarged ~25% using responsive clamp) -->
         <a class="navbar-brand d-flex align-items-center" href="{% url 'core:index' %}">
             <img src="{% static 'images/logo.png' %}" alt="Elevate Workforce" class="navbar-brand-logo me-2 flex-shrink-0" loading="eager" />
         </a>
 
         <!-- Mobile Toggle Button -->
-        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler border-0 flex-shrink-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <!-- Navigation Links -->
         <div class="collapse navbar-collapse" id="mainNavbar">
-            <ul class="navbar-nav mx-auto mb-2 mb-lg-0 poppins-medium gap-xl-2">
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0 poppins-medium">
                 <li class="nav-item"><a class="nav-link" href="{% url 'core:index' %}">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'core:about' %}">About</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'core:services' %}">Services</a></li>
@@ -25,7 +25,7 @@
             </ul>
 
             <!-- Right Align Actions, Language Translator & Account -->
-             <div class="d-flex align-items-center gap-1 ms-xl-3 flex-nowrap">
+            <div class="d-flex align-items-center gap-2 flex-wrap flex-lg-nowrap">
                 
                 <!-- Live Language Translation Dropdown -->
                 <div class="dropdown me-2">
@@ -75,9 +75,9 @@
                         </ul>
                     </div>
                 {% else %}
-                    <a href="{% url 'users:login' %}" class="btn btn-outline-custom poppins-semibold py-2 px-2 navbar-action-btn">Login</a>
-                    <a href="{% url 'users:register_candidate' %}" class="btn btn-primary-custom poppins-semibold py-2 px-2 navbar-action-btn">Register</a>
-                    <a href="{% url 'core:contact' %}" class="btn btn-outline-custom poppins-semibold py-2 px-2 navbar-action-btn"><i class="fa-solid fa-building me-2"></i>Hire Talent</a>
+                    <a href="{% url 'users:login' %}" class="btn btn-outline-custom poppins-semibold py-2 px-3 navbar-action-btn">Login</a>
+                    <a href="{% url 'users:register_candidate' %}" class="btn btn-primary-custom poppins-semibold py-2 px-3 navbar-action-btn">Register</a>
+                    <a href="{% url 'core:contact' %}" class="btn btn-outline-custom poppins-semibold py-2 px-3 navbar-action-btn"><i class="fa-solid fa-building me-2"></i>Hire Talent</a>
                 {% endif %}
             </div>
         </div>

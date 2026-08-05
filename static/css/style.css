@@ -235,12 +235,17 @@ p {
     color: #FFFFFF;
 }
 
+.navbar-nav {
+    gap: 0.15rem;
+}
+
 .custom-navbar .nav-link {
     color: var(--dark-color);
-    font-size: clamp(1rem, 0.95rem + 0.2vw, 1.0625rem); /* 16px -> 17px */
+    font-size: clamp(0.9375rem, 0.85rem + 0.25vw, 1.0625rem); /* 15px -> 17px */
     font-weight: 600;
     letter-spacing: 0.01em;
-    padding: 0.7rem 1.1rem !important;
+    padding: 0.6rem 0.65rem !important;
+    white-space: nowrap;
     position: relative;
     transition: var(--transition-smooth);
 }
@@ -254,8 +259,13 @@ p {
 }
 
 .navbar-action-btn {
-    font-size: clamp(1rem, 0.95rem + 0.15vw, 1.0625rem) !important; /* 16px -> 17px */
+    font-size: clamp(0.9375rem, 0.9rem + 0.1vw, 1.0625rem) !important; /* 15px -> 17px */
     font-weight: 600 !important;
+    white-space: nowrap;
+}
+
+#langDropdown.navbar-action-btn {
+    padding: 0.5rem 0.85rem !important;
 }
 
 .dropdown-menu {
@@ -434,14 +444,12 @@ p {
 .navbar-brand {
     padding-top: 0.2rem;
     padding-bottom: 0.2rem;
-    max-width: min(42vw, 356px);
     flex-shrink: 0;
 }
 
 .navbar-brand-logo {
-    width: clamp(275px, 25vw, 356px);
-    height: auto;
-    max-height: clamp(95px, 8vw, 115px);
+    height: clamp(38px, 3.2vw, 52px);
+    width: auto;
     max-width: 100%;
     object-fit: contain;
     display: block;
@@ -536,59 +544,16 @@ p {
     overflow: hidden;
 }
 
-@media (max-width:1150px){
-
-    .navbar-expand-xl .navbar-toggler{
-        display:block;
+@media (max-width: 767px) {
+    .profile-avatar {
+        width: 140px;
+        height: 140px;
+        max-width: 140px;
     }
 
-    .navbar-expand-xl .navbar-collapse{
-        flex-basis:100%;
-        flex-grow:1;
-        width:100%;
-        margin-top:20px;
-    }
-
-    .navbar-expand-xl .navbar-collapse:not(.show){
-        display:none !important;
-    }
-
-    .navbar-expand-xl .navbar-collapse.show{
-        display:flex !important;
-        flex-direction:column;
-        align-items:stretch;
-    }
-
-    .navbar-expand-xl .navbar-nav{
-        width:100%;
-        display:flex;
-        flex-direction:column;
-        gap:10px;
-        margin-bottom:20px;
-    }
-
-    .navbar-expand-xl .navbar-nav .nav-link{
-        display:block;
-        padding:12px 16px;
-    }
-
-    .navbar-expand-xl .d-flex{
-        display:flex !important;
-        flex-direction:column;
-        width:100%;
-        gap:10px;
-    }
-
-    .navbar-expand-xl .navbar-action-btn{
-        width:100%;
-    }
-
-    .navbar-expand-xl .dropdown{
-        width:100%;
-    }
-
-    .navbar-expand-xl .dropdown-toggle{
-        width:100%;
+    .navbar-brand-logo {
+        height: clamp(34px, 9vw, 44px);
+        width: auto;
     }
 }
 
@@ -847,40 +812,33 @@ p {
 /* ==========================================================================
    10. SCREEN RESPONSIVENESS OVERRIDES
    ========================================================================== */
-@media (max-width: 1250px) {
-    .custom-navbar .nav-link {
-        font-size: clamp(0.9375rem, 0.9rem + 0.1vw, 1rem) !important;
-        padding: 0.5rem 0.75rem !important;
-    }
-    .logo-text {
-        font-size: 18px !important;
-    }
-}
-
-@media (max-width: 1150px) {
-    .navbar-expand-xl .navbar-toggler {
-        display: block !important;
-    }
-    .navbar-expand-xl .navbar-collapse {
-        display: none !important;
-        flex-basis: 100%;
-        margin-top: 15px;
-    }
-    .navbar-expand-xl .navbar-collapse.show {
-        display: block !important;
-    }
-    .navbar-expand-xl .navbar-nav {
-        flex-direction: column;
+/* Below 1400px the navbar collapses into the hamburger menu (native
+   Bootstrap behavior via .navbar-expand-xxl), so the logo, 8 nav links,
+   language switcher, theme toggle and CTA buttons never have to squeeze
+   into one horizontal row that's too narrow for them. */
+@media (max-width: 1399.98px) {
+    .navbar-expand-xxl .navbar-nav {
         gap: 10px;
         padding-top: 10px;
         border-top: 1px solid rgba(0, 0, 0, 0.05);
     }
-    .navbar-expand-xl .d-flex {
+    .navbar-expand-xxl .d-flex {
         flex-direction: column;
         align-items: stretch !important;
         width: 100%;
         margin-top: 15px;
         gap: 10px !important;
+    }
+}
+
+/* At 1400px and up the row is fully expanded — keep it on a single line
+   now that the logo/links/buttons have been sized to actually fit it */
+@media (min-width: 1400px) {
+    .navbar-expand-xxl .navbar-nav {
+        flex-wrap: nowrap;
+    }
+    .navbar-expand-xxl > .container-fluid > .navbar-collapse > .d-flex {
+        flex-wrap: nowrap !important;
     }
 }
 

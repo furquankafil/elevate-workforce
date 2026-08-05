@@ -3,6 +3,7 @@ Django>=5.0.0,<5.1.0
 
 # Database Connections
 psycopg2-binary>=2.9.9
+dj-database-url>=2.1.0
 
 # Environment Variables & Security Configuration
 django-environ>=0.11.2

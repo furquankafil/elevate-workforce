@@ -225,7 +225,7 @@ p {
 }
 
 .navbar-brand-logo {
-    height: clamp(55px, 4vw, 60px);
+    height: clamp(70px, 5vw, 85px);
     width: auto;
     max-width: 100%;
     object-fit: contain;
@@ -255,15 +255,14 @@ p {
 
 .custom-navbar .nav-link {
     color: var(--dark-color);
-    font-size: clamp(0.9375rem, 0.85rem + 0.25vw, 1.0625rem); /* 15px -> 17px */
+    font-size: 15px;
     font-weight: 600;
     letter-spacing: 0.01em;
-    padding: 0.6rem 0.65rem !important;
+    padding: 0.55rem 0.45rem !important;
     white-space: nowrap;
     position: relative;
     transition: var(--transition-smooth);
 }
-
 .dropdown-menu .dropdown-item,
 .dropdown-item {
     font-size: 1.0625rem; /* 17px */
@@ -273,8 +272,9 @@ p {
 }
 
 .navbar-action-btn {
-    font-size: clamp(0.9375rem, 0.9rem + 0.1vw, 1.0625rem) !important; /* 15px -> 17px */
+    font-size: 15px !important;
     font-weight: 600 !important;
+    padding: 0.45rem 0.85rem !important;
     white-space: nowrap;
 }
 
@@ -812,10 +812,19 @@ p {
    language switcher, theme toggle and CTA buttons never have to squeeze
    into one horizontal row that's too narrow for them. */
 @media (max-width: 1199.98px) {
-    .navbar-expand-xl .navbar-nav {
-        gap: 10px;
-        padding-top: 10px;
-        border-top: 1px solid rgba(0, 0, 0, 0.05);
+    .navbar-brand-logo{
+        height:65px;
+    }
+
+    .navbar-expand-xl .navbar-nav{
+        gap:8px;
+        padding-top:10px;
+        border-top:1px solid rgba(0,0,0,.05);
+    }
+
+    .navbar-action-btn{
+        width:100%;
+        margin-top:6px;
     }
 }
 

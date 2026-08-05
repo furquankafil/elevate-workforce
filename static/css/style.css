@@ -218,20 +218,20 @@ p {
     z-index: 1030;
 }
 
-.navbar-brand {
-    padding-top: 0.2rem;
-    padding-bottom: 0.2rem;
+.navbar-brand{
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-right: 12px;
     flex-shrink: 0;
 }
 
-.navbar-brand-logo {
-    height: clamp(70px, 5vw, 85px);
+.navbar-brand-logo{
+    height: clamp(80px, 5.5vw, 100px);
     width: auto;
     max-width: 100%;
     object-fit: contain;
     display: block;
 }
-
 .logo-text {
     font-size: 22px;
     font-weight: 700;

@@ -448,7 +448,7 @@ p {
 }
 
 .navbar-brand-logo {
-    height: clamp(38px, 3.2vw, 52px);
+    height: clamp(85px, 6vw, 110px);
     width: auto;
     max-width: 100%;
     object-fit: contain;
@@ -549,11 +549,6 @@ p {
         width: 140px;
         height: 140px;
         max-width: 140px;
-    }
-
-    .navbar-brand-logo {
-        height: clamp(34px, 9vw, 44px);
-        width: auto;
     }
 }
 
@@ -812,32 +807,25 @@ p {
 /* ==========================================================================
    10. SCREEN RESPONSIVENESS OVERRIDES
    ========================================================================== */
-/* Below 1400px the navbar collapses into the hamburger menu (native
-   Bootstrap behavior via .navbar-expand-xxl), so the logo, 8 nav links,
+/* Below 1200px the navbar collapses into the hamburger menu (native
+   Bootstrap behavior via .navbar-expand-xl), so the logo, 8 nav links,
    language switcher, theme toggle and CTA buttons never have to squeeze
    into one horizontal row that's too narrow for them. */
-@media (max-width: 1399.98px) {
-    .navbar-expand-xxl .navbar-nav {
+@media (max-width: 1199.98px) {
+    .navbar-expand-xl .navbar-nav {
         gap: 10px;
         padding-top: 10px;
         border-top: 1px solid rgba(0, 0, 0, 0.05);
     }
-    #mainNavbar > .d-flex {
-        flex-direction: column;
-        align-items: stretch !important;
-        width: 100%;
-        margin-top: 15px;
-        gap: 10px !important;
-    }
 }
 
-/* At 1400px and up the row is fully expanded — keep it on a single line
+/* At 1200px and up the row is fully expanded — keep it on a single line
    now that the logo/links/buttons have been sized to actually fit it */
-@media (min-width: 1400px) {
-    .navbar-expand-xxl .navbar-nav {
+@media (min-width: 1200px) {
+    .navbar-expand-xl .navbar-nav {
         flex-wrap: nowrap;
     }
-    .navbar-expand-xxl > .container-fluid > .navbar-collapse > .d-flex {
+    .navbar-expand-xl > .container-fluid > .navbar-collapse > .d-flex {
         flex-wrap: nowrap !important;
     }
 }

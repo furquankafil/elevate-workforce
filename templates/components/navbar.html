@@ -1,5 +1,5 @@
 {% load static %}
-<nav class="navbar navbar-expand-xxl sticky-top custom-navbar py-3">
+<nav class="navbar navbar-expand-xl sticky-top custom-navbar py-3">
     <div class="container-fluid px-3 px-md-4">
         <!-- Brand Logo Image (Enlarged ~25% using responsive clamp) -->
         <a class="navbar-brand d-flex align-items-center" href="{% url 'core:index' %}">
@@ -74,7 +74,7 @@
                             <li><a class="dropdown-item rounded-2 py-2 text-danger" href="{% url 'users:logout' %}"><i class="fa-solid fa-right-from-bracket me-2"></i> Log Out</a></li>
                         </ul>
                     </div>
-                {% else %}
+                {% else %} Apartment
                     <a href="{% url 'users:login' %}" class="btn btn-outline-custom poppins-semibold py-2 px-3 navbar-action-btn">Login</a>
                     <a href="{% url 'users:register_candidate' %}" class="btn btn-primary-custom poppins-semibold py-2 px-3 navbar-action-btn">Register</a>
                     <a href="{% url 'core:contact' %}" class="btn btn-outline-custom poppins-semibold py-2 px-3 navbar-action-btn"><i class="fa-solid fa-building me-2"></i>Hire Talent</a>

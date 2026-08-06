@@ -226,7 +226,7 @@ p {
 }
 
 .navbar-brand-logo{
-    height: clamp(80px, 5.5vw, 100px);
+    height: clamp(95px, 6.5vw, 120px);
     width: auto;
     max-width: 100%;
     object-fit: contain;
@@ -813,7 +813,7 @@ p {
    into one horizontal row that's too narrow for them. */
 @media (max-width: 1199.98px) {
     .navbar-brand-logo{
-        height:65px;
+        height:80px;
     }
 
     .navbar-expand-xl .navbar-nav{
